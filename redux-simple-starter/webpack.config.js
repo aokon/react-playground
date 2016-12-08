@@ -1,3 +1,5 @@
+var webpack = require('webpack');
+
 module.exports = {
   entry: [
     './src/index.js'
@@ -16,6 +18,14 @@ module.exports = {
       }
     }]
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env':{
+          'NODE_ENV': JSON.stringify('development'),
+          'YOUTUBE_API_KEY': JSON.stringify(process.env.YOUTUBE_API_KEY)
+        }
+    }),
+  ],
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
