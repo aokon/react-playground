@@ -1,4 +1,4 @@
-youtube-browser/node_modules
-youtube-browser/bundle.js
-youtube-browser/npm-debug.log
-youtube-browser/.env
+*/node_modules
+*/bundle.js
+*/npm-debug.log
+*/.env
