@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import BookList from "../containers/book_list";
+import BookDetail from "../containers/book_detail";
 
 class App extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class App extends Component {
     return (
        <div className="book-app">
           <BookList />
+          <BookDetail />
         </div>
     );
   }
