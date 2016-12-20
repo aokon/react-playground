@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import SearchBar from "../containers/search_bar";
 
 
 class App extends Component {
@@ -6,12 +7,15 @@ class App extends Component {
     super(props);
   }
 
-
   render() {
     return (
-       <div className="weather-app">
-          Ready to develop!!!
-        </div>
+       <div className="weather-app container">
+          <div className="row">
+            <div className="col-md-12">
+               <SearchBar />
+            </div>
+          </div>
+       </div>
     );
   }
 }
