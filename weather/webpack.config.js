@@ -18,6 +18,14 @@ module.exports = {
       }
     }]
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env':{
+          'NODE_ENV': JSON.stringify('development'),
+          'WEATHER_API_KEY': JSON.stringify(process.env.WEATHER_API_KEY)
+        }
+    }),
+  ],
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
