@@ -1,27 +1,18 @@
-.search-bar {
-  margin: 1.5em;
-  margin-left: 0;
+.input-group {
+  margin: 1.5rem 0;
 }
 
-.search-bar input {
-  width: 75%;
+th, td {
+  vertical-align: middle !important;
+  text-align: center !important;
 }
 
-.list-group-item {
-  cursor: pointer;
+td:first-of-type {
+  width: 250px;
+  height: 200px;
 }
 
-.list-group-item:hover {
-  background-color: #eee;
-}
-
-.video-item img {
-  max-width: 10vw;
-}
-
-.video-detail .details {
-  margin-top: 1.5em;
-  padding: 1em;
-  border: 1px solid #ddd;
-  border-radius: 1em;
+.chart {
+  width: 250px;
+  overflow: hidden;
 }
