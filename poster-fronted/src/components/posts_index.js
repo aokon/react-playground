@@ -12,8 +12,10 @@ class PostIndex extends Component {
     return this.props.posts.map((post) => {
       return (
         <li className="list-group-item" key={post.id}>
-          <h5 className="pull-md-left">{post.title}</h5>
-          <span className="pull-md-right">{post.category}</span>
+          <Link to={`/posts/${post.id}`}>
+            <h5 className="pull-md-left">{post.title}</h5>
+            <span className="pull-md-right">{post.category}</span>
+          </Link>
         </li>
       );
     });
