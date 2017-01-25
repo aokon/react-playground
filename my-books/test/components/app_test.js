@@ -8,7 +8,15 @@ describe('App' , () => {
     component = renderComponent(App);
   });
 
-  it('renders something', () => {
-    expect(component).to.exist;
+  it('renders main container', () => {
+    expect(component).to.have.class('book-app');
+  });
+
+  it('renders book list', () => {
+    expect(component.find('.list-group')).to.exist;
+  });
+
+  it('renders book detail', () => {
+    expect(component.find('.book-detail')).to.exist;
   });
 });
