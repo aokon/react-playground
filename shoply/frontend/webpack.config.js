@@ -1,8 +1,16 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   entry: {
     fronted_app: './src/index.js',
+    vendor: [
+      'react',
+      'react-dom',
+      'react-redux',
+      'react-router',
+      'redux',
+    ],
   },
 
   output: {
@@ -26,6 +34,15 @@ module.exports = {
       }
     }]
   },
+
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: '[name].bundle.js',
+      minChunks: 2,
+    }),
+  ],
+
   resolve: {
     extensions: ['.js', '.jsx', '.css', '.scss'],
     modules: [path.resolve(__dirname, './src'), 'node_modules']
