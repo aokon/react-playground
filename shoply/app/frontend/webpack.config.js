@@ -14,7 +14,7 @@ module.exports = {
   },
 
   output: {
-    path: path.resolve(__dirname, '../app/assets/javascripts'),
+    path: path.resolve(__dirname, '../assets/javascripts'),
     filename: '[name].bundle.js'
   },
 

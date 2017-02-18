@@ -28,11 +28,7 @@ var App = function (_Component) {
   _createClass(App, [{
     key: "render",
     value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "div",
-        { className: "shoply" },
-        "Shoply simple starter is awesome"
-      );
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "shoply" });
     }
   }]);
 

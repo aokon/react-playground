@@ -1,2 +1,2 @@
 web: bundle exec rails s -p 3000
-frontend: sh -c 'cd frontend && npm run dev'
+frontend: sh -c 'cd app/frontend && npm run dev'
