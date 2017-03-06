@@ -1,10 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
-    fronted_app: './src/index.js',
-    vendor: [
+    'stylesheets/frontend_app.css': './style/style.scss',
+    'javascripts/fronted_app.js': './src/index.js',
+    'javascripts/vendor.bundle.js': [
       'react',
       'react-dom',
       'react-redux',
@@ -14,8 +16,8 @@ module.exports = {
   },
 
   output: {
-    path: path.resolve(__dirname, '../assets/javascripts'),
-    filename: '[name].bundle.js'
+    path: path.resolve(__dirname, '../assets'),
+    filename: '[name]'
   },
 
   module: {
@@ -29,18 +31,36 @@ module.exports = {
           presets: [
             ['es2015', { modules: false }],
             'react',
-          ],
+          ]
         }
       }
+    }, {
+      test: /\.scss$/,
+      use: ExtractTextPlugin.extract({
+        loader: ['css-loader', 'sass-loader']
+      })
+    }, {
+      test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+      loader: 'file-loader?name=[name].[ext]&outputPath=fonts/&publicPath=/assets/'
     }]
   },
 
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      filename: '[name].bundle.js',
-      minChunks: 2,
+      name: 'javascripts/vendor.bundle.js',
+      minChunks: 2
     }),
+
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "Hammer": "hammerjs/hammer"
+    }),
+
+    new ExtractTextPlugin({
+      allChunks: true,
+      filename: '[name]'
+    })
   ],
 
   resolve: {
