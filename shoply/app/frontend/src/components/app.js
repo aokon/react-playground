@@ -9,7 +9,9 @@ export default class App extends Component {
       <div className="shoply">
         <Header />
         <main>
-          Hello
+          <div className="container">
+            {this.props.children}
+          </div>
         </main>
         <Footer />
       </div>
