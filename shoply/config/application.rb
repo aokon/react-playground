@@ -25,5 +25,12 @@ module Shoply
     end
 
     config.active_record.primary_key = :uuid
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', :headers => :any, :methods => [:get, :post, :options]
+      end
+    end
   end
 end
