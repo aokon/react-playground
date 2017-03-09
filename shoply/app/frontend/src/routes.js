@@ -3,9 +3,11 @@ import { Route, IndexRoute } from 'react-router';
 
 import App from './components/app';
 import LandingView from './components/landing_view';
+import AboutView from './components/about_view';
 
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={LandingView} />
+    <Route path="about" component={AboutView} />
   </Route>
 );

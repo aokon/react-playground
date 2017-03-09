@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 export default () => {
   return(
@@ -12,8 +13,8 @@ export default () => {
           <div className="col l4 offset-l2 s12">
             <h5 className="white-text">Links</h5>
             <ul>
-              <li><a className="grey-text text-lighten-3" href="#!">Home</a></li>
-              <li><a className="grey-text text-lighten-3" href="#!">About</a></li>
+              <li><Link className="grey-text text-lighten-3" to="/">Home</Link></li>
+              <li><Link className="grey-text text-lighten-3" to="/about">About</Link></li>
               <li><a className="grey-text text-lighten-3" href="#!">Contact</a></li>
               <li><a className="grey-text text-lighten-3" href="#!">Your cart</a></li>
             </ul>

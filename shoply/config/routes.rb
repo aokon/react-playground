@@ -10,5 +10,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get "*pages" => 'home#index'
+
   root to: "home#index"
 end
