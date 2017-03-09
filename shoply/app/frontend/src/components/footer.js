@@ -15,7 +15,7 @@ export default () => {
             <ul>
               <li><Link className="grey-text text-lighten-3" to="/">Home</Link></li>
               <li><Link className="grey-text text-lighten-3" to="/about">About</Link></li>
-              <li><a className="grey-text text-lighten-3" href="#!">Contact</a></li>
+              <li><Link className="grey-text text-lighten-3" to="/contact">Contact</Link></li>
               <li><a className="grey-text text-lighten-3" href="#!">Your cart</a></li>
             </ul>
           </div>

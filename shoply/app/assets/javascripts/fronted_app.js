@@ -30,6 +30,8 @@ var rootReducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["com
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_app__ = __webpack_require__(133);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_landing_view__ = __webpack_require__(136);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_about_view__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_contact_view__ = __webpack_require__(270);
+
 
 
 
@@ -41,7 +43,8 @@ var rootReducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["com
   __WEBPACK_IMPORTED_MODULE_1_react_router__["Route"],
   { path: '/', component: __WEBPACK_IMPORTED_MODULE_2__components_app__["a" /* default */] },
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["IndexRoute"], { component: __WEBPACK_IMPORTED_MODULE_3__components_landing_view__["a" /* default */] }),
-  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Route"], { path: 'about', component: __WEBPACK_IMPORTED_MODULE_4__components_about_view__["a" /* default */] })
+  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Route"], { path: 'about', component: __WEBPACK_IMPORTED_MODULE_4__components_about_view__["a" /* default */] }),
+  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["Route"], { path: 'contact', component: __WEBPACK_IMPORTED_MODULE_5__components_contact_view__["a" /* default */] })
 );
 
 /***/ }),
@@ -204,8 +207,8 @@ var App = function (_Component) {
               'li',
               null,
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'a',
-                { className: 'grey-text text-lighten-3', href: '#!' },
+                __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
+                { className: 'grey-text text-lighten-3', to: '/contact' },
                 'Contact'
               )
             ),
@@ -283,7 +286,11 @@ var App = function (_Component) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'li',
           null,
-          'Contact'
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_1_react_router__["Link"],
+            { to: '/contact' },
+            'Contact'
+          )
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'li',
@@ -351,6 +358,43 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
   { store: createStoreWithMiddleware(__WEBPACK_IMPORTED_MODULE_5__reducers__["a" /* default */]) },
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4_react_router__["Router"], { history: __WEBPACK_IMPORTED_MODULE_4_react_router__["browserHistory"], routes: __WEBPACK_IMPORTED_MODULE_6__routes__["a" /* default */] })
 ), document.getElementById('app'));
+
+/***/ }),
+
+/***/ 270:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+/* harmony default export */ __webpack_exports__["a"] = function () {
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    "div",
+    { className: "contact-view" },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "h2",
+      null,
+      "Contact"
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "p",
+      null,
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "p",
+      null,
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "p",
+      null,
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+    )
+  );
+};
 
 /***/ })
 
