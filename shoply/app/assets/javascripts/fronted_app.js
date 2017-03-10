@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 134:
+/***/ 137:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10,9 +10,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redux = __webpack_require__(29);
+var _redux = __webpack_require__(30);
 
-var _categories = __webpack_require__(158);
+var _categories = __webpack_require__(161);
 
 var _categories2 = _interopRequireDefault(_categories);
 
@@ -26,7 +26,7 @@ exports.default = rootReducer;
 
 /***/ }),
 
-/***/ 135:
+/***/ 138:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40,23 +40,27 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(25);
+var _reactRouter = __webpack_require__(20);
 
-var _app = __webpack_require__(153);
+var _app = __webpack_require__(155);
 
 var _app2 = _interopRequireDefault(_app);
 
-var _landing_view = __webpack_require__(157);
+var _landing_view = __webpack_require__(160);
 
 var _landing_view2 = _interopRequireDefault(_landing_view);
 
-var _about_view = __webpack_require__(152);
+var _about_view = __webpack_require__(154);
 
 var _about_view2 = _interopRequireDefault(_about_view);
 
-var _contact_view = __webpack_require__(154);
+var _contact_view = __webpack_require__(157);
 
 var _contact_view2 = _interopRequireDefault(_contact_view);
+
+var _category_view = __webpack_require__(156);
+
+var _category_view2 = _interopRequireDefault(_category_view);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -65,12 +69,13 @@ exports.default = _react2.default.createElement(
   { path: '/', component: _app2.default },
   _react2.default.createElement(_reactRouter.IndexRoute, { component: _landing_view2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'about', component: _about_view2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: 'contact', component: _contact_view2.default })
+  _react2.default.createElement(_reactRouter.Route, { path: 'contact', component: _contact_view2.default }),
+  _react2.default.createElement(_reactRouter.Route, { path: 'category/:id', component: _category_view2.default })
 );
 
 /***/ }),
 
-/***/ 136:
+/***/ 139:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -92,201 +97,6 @@ function thunkMiddleware(_ref) {
     };
   };
 }
-
-/***/ }),
-
-/***/ 137:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(138);
-
-/***/ }),
-
-/***/ 138:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var defaults = __webpack_require__(141);
-var utils = __webpack_require__(14);
-var dispatchRequest = __webpack_require__(140);
-var InterceptorManager = __webpack_require__(139);
-var isAbsoluteURL = __webpack_require__(147);
-var combineURLs = __webpack_require__(145);
-var bind = __webpack_require__(142);
-var transformData = __webpack_require__(77);
-
-function Axios(defaultConfig) {
-  this.defaults = utils.merge({}, defaultConfig);
-  this.interceptors = {
-    request: new InterceptorManager(),
-    response: new InterceptorManager()
-  };
-}
-
-Axios.prototype.request = function request(config) {
-  /*eslint no-param-reassign:0*/
-  // Allow for axios('example/url'[, config]) a la fetch API
-  if (typeof config === 'string') {
-    config = utils.merge({
-      url: arguments[0]
-    }, arguments[1]);
-  }
-
-  config = utils.merge(defaults, this.defaults, { method: 'get' }, config);
-
-  // Support baseURL config
-  if (config.baseURL && !isAbsoluteURL(config.url)) {
-    config.url = combineURLs(config.baseURL, config.url);
-  }
-
-  // Don't allow overriding defaults.withCredentials
-  config.withCredentials = config.withCredentials || this.defaults.withCredentials;
-
-  // Transform request data
-  config.data = transformData(
-    config.data,
-    config.headers,
-    config.transformRequest
-  );
-
-  // Flatten headers
-  config.headers = utils.merge(
-    config.headers.common || {},
-    config.headers[config.method] || {},
-    config.headers || {}
-  );
-
-  utils.forEach(
-    ['delete', 'get', 'head', 'post', 'put', 'patch', 'common'],
-    function cleanHeaderConfig(method) {
-      delete config.headers[method];
-    }
-  );
-
-  // Hook up interceptors middleware
-  var chain = [dispatchRequest, undefined];
-  var promise = Promise.resolve(config);
-
-  this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
-    chain.unshift(interceptor.fulfilled, interceptor.rejected);
-  });
-
-  this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
-    chain.push(interceptor.fulfilled, interceptor.rejected);
-  });
-
-  while (chain.length) {
-    promise = promise.then(chain.shift(), chain.shift());
-  }
-
-  return promise;
-};
-
-var defaultInstance = new Axios(defaults);
-var axios = module.exports = bind(Axios.prototype.request, defaultInstance);
-
-axios.create = function create(defaultConfig) {
-  return new Axios(defaultConfig);
-};
-
-// Expose defaults
-axios.defaults = defaultInstance.defaults;
-
-// Expose all/spread
-axios.all = function all(promises) {
-  return Promise.all(promises);
-};
-axios.spread = __webpack_require__(150);
-
-// Expose interceptors
-axios.interceptors = defaultInstance.interceptors;
-
-// Provide aliases for supported request methods
-utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
-  /*eslint func-names:0*/
-  Axios.prototype[method] = function(url, config) {
-    return this.request(utils.merge(config || {}, {
-      method: method,
-      url: url
-    }));
-  };
-  axios[method] = bind(Axios.prototype[method], defaultInstance);
-});
-
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  /*eslint func-names:0*/
-  Axios.prototype[method] = function(url, data, config) {
-    return this.request(utils.merge(config || {}, {
-      method: method,
-      url: url,
-      data: data
-    }));
-  };
-  axios[method] = bind(Axios.prototype[method], defaultInstance);
-});
-
-
-/***/ }),
-
-/***/ 139:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(14);
-
-function InterceptorManager() {
-  this.handlers = [];
-}
-
-/**
- * Add a new interceptor to the stack
- *
- * @param {Function} fulfilled The function to handle `then` for a `Promise`
- * @param {Function} rejected The function to handle `reject` for a `Promise`
- *
- * @return {Number} An ID used to remove interceptor later
- */
-InterceptorManager.prototype.use = function use(fulfilled, rejected) {
-  this.handlers.push({
-    fulfilled: fulfilled,
-    rejected: rejected
-  });
-  return this.handlers.length - 1;
-};
-
-/**
- * Remove an interceptor from the stack
- *
- * @param {Number} id The ID that was returned by `use`
- */
-InterceptorManager.prototype.eject = function eject(id) {
-  if (this.handlers[id]) {
-    this.handlers[id] = null;
-  }
-};
-
-/**
- * Iterate over all the registered interceptors
- *
- * This method is particularly useful for skipping over any
- * interceptors that may have become `null` calling `eject`.
- *
- * @param {Function} fn The function to call for each interceptor
- */
-InterceptorManager.prototype.forEach = function forEach(fn) {
-  utils.forEach(this.handlers, function forEachHandler(h) {
-    if (h !== null) {
-      fn(h);
-    }
-  });
-};
-
-module.exports = InterceptorManager;
-
 
 /***/ }),
 
@@ -545,6 +355,201 @@ module.exports = {
 /***/ 140:
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__(141);
+
+/***/ }),
+
+/***/ 141:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var defaults = __webpack_require__(144);
+var utils = __webpack_require__(14);
+var dispatchRequest = __webpack_require__(143);
+var InterceptorManager = __webpack_require__(142);
+var isAbsoluteURL = __webpack_require__(150);
+var combineURLs = __webpack_require__(148);
+var bind = __webpack_require__(145);
+var transformData = __webpack_require__(77);
+
+function Axios(defaultConfig) {
+  this.defaults = utils.merge({}, defaultConfig);
+  this.interceptors = {
+    request: new InterceptorManager(),
+    response: new InterceptorManager()
+  };
+}
+
+Axios.prototype.request = function request(config) {
+  /*eslint no-param-reassign:0*/
+  // Allow for axios('example/url'[, config]) a la fetch API
+  if (typeof config === 'string') {
+    config = utils.merge({
+      url: arguments[0]
+    }, arguments[1]);
+  }
+
+  config = utils.merge(defaults, this.defaults, { method: 'get' }, config);
+
+  // Support baseURL config
+  if (config.baseURL && !isAbsoluteURL(config.url)) {
+    config.url = combineURLs(config.baseURL, config.url);
+  }
+
+  // Don't allow overriding defaults.withCredentials
+  config.withCredentials = config.withCredentials || this.defaults.withCredentials;
+
+  // Transform request data
+  config.data = transformData(
+    config.data,
+    config.headers,
+    config.transformRequest
+  );
+
+  // Flatten headers
+  config.headers = utils.merge(
+    config.headers.common || {},
+    config.headers[config.method] || {},
+    config.headers || {}
+  );
+
+  utils.forEach(
+    ['delete', 'get', 'head', 'post', 'put', 'patch', 'common'],
+    function cleanHeaderConfig(method) {
+      delete config.headers[method];
+    }
+  );
+
+  // Hook up interceptors middleware
+  var chain = [dispatchRequest, undefined];
+  var promise = Promise.resolve(config);
+
+  this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
+    chain.unshift(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
+    chain.push(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  while (chain.length) {
+    promise = promise.then(chain.shift(), chain.shift());
+  }
+
+  return promise;
+};
+
+var defaultInstance = new Axios(defaults);
+var axios = module.exports = bind(Axios.prototype.request, defaultInstance);
+
+axios.create = function create(defaultConfig) {
+  return new Axios(defaultConfig);
+};
+
+// Expose defaults
+axios.defaults = defaultInstance.defaults;
+
+// Expose all/spread
+axios.all = function all(promises) {
+  return Promise.all(promises);
+};
+axios.spread = __webpack_require__(153);
+
+// Expose interceptors
+axios.interceptors = defaultInstance.interceptors;
+
+// Provide aliases for supported request methods
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function(url, config) {
+    return this.request(utils.merge(config || {}, {
+      method: method,
+      url: url
+    }));
+  };
+  axios[method] = bind(Axios.prototype[method], defaultInstance);
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function(url, data, config) {
+    return this.request(utils.merge(config || {}, {
+      method: method,
+      url: url,
+      data: data
+    }));
+  };
+  axios[method] = bind(Axios.prototype[method], defaultInstance);
+});
+
+
+/***/ }),
+
+/***/ 142:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(14);
+
+function InterceptorManager() {
+  this.handlers = [];
+}
+
+/**
+ * Add a new interceptor to the stack
+ *
+ * @param {Function} fulfilled The function to handle `then` for a `Promise`
+ * @param {Function} rejected The function to handle `reject` for a `Promise`
+ *
+ * @return {Number} An ID used to remove interceptor later
+ */
+InterceptorManager.prototype.use = function use(fulfilled, rejected) {
+  this.handlers.push({
+    fulfilled: fulfilled,
+    rejected: rejected
+  });
+  return this.handlers.length - 1;
+};
+
+/**
+ * Remove an interceptor from the stack
+ *
+ * @param {Number} id The ID that was returned by `use`
+ */
+InterceptorManager.prototype.eject = function eject(id) {
+  if (this.handlers[id]) {
+    this.handlers[id] = null;
+  }
+};
+
+/**
+ * Iterate over all the registered interceptors
+ *
+ * This method is particularly useful for skipping over any
+ * interceptors that may have become `null` calling `eject`.
+ *
+ * @param {Function} fn The function to call for each interceptor
+ */
+InterceptorManager.prototype.forEach = function forEach(fn) {
+  utils.forEach(this.handlers, function forEachHandler(h) {
+    if (h !== null) {
+      fn(h);
+    }
+  });
+};
+
+module.exports = InterceptorManager;
+
+
+/***/ }),
+
+/***/ 143:
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
@@ -585,7 +590,7 @@ module.exports = function dispatchRequest(config) {
 
 /***/ }),
 
-/***/ 141:
+/***/ 144:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -656,7 +661,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 142:
+/***/ 145:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -675,7 +680,7 @@ module.exports = function bind(fn, thisArg) {
 
 /***/ }),
 
-/***/ 143:
+/***/ 146:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -719,7 +724,7 @@ module.exports = btoa;
 
 /***/ }),
 
-/***/ 144:
+/***/ 147:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -794,7 +799,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 /***/ }),
 
-/***/ 145:
+/***/ 148:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -814,7 +819,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 /***/ }),
 
-/***/ 146:
+/***/ 149:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -875,7 +880,7 @@ module.exports = (
 
 /***/ }),
 
-/***/ 147:
+/***/ 150:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -897,7 +902,7 @@ module.exports = function isAbsoluteURL(url) {
 
 /***/ }),
 
-/***/ 148:
+/***/ 151:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -973,7 +978,7 @@ module.exports = (
 
 /***/ }),
 
-/***/ 149:
+/***/ 152:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1018,7 +1023,7 @@ module.exports = function parseHeaders(headers) {
 
 /***/ }),
 
-/***/ 150:
+/***/ 153:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1053,41 +1058,7 @@ module.exports = function spread(callback) {
 
 /***/ }),
 
-/***/ 151:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.fetchCategories = fetchCategories;
-
-var _types = __webpack_require__(78);
-
-var _axios = __webpack_require__(137);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var API_PATH = 'http://api.sholpy.dev';
-
-function fetchCategories() {
-  return function (dispatch) {
-    _axios2.default.get(API_PATH + '/v1/categories').then(function (response) {
-      dispatch({
-        type: _types.FETCH_CATEGORIES,
-        payload: response.data
-      });
-    });
-  };
-}
-
-/***/ }),
-
-/***/ 152:
+/***/ 154:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1127,7 +1098,7 @@ exports.default = function () {
 
 /***/ }),
 
-/***/ 153:
+/***/ 155:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1143,11 +1114,11 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _header = __webpack_require__(156);
+var _header = __webpack_require__(159);
 
 var _header2 = _interopRequireDefault(_header);
 
-var _footer = __webpack_require__(155);
+var _footer = __webpack_require__(158);
 
 var _footer2 = _interopRequireDefault(_footer);
 
@@ -1196,7 +1167,101 @@ exports.default = App;
 
 /***/ }),
 
-/***/ 154:
+/***/ 156:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(29);
+
+var _lodash = __webpack_require__(94);
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _actions = __webpack_require__(78);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CategoryView = function (_Component) {
+  _inherits(CategoryView, _Component);
+
+  function CategoryView() {
+    _classCallCheck(this, CategoryView);
+
+    return _possibleConstructorReturn(this, (CategoryView.__proto__ || Object.getPrototypeOf(CategoryView)).apply(this, arguments));
+  }
+
+  _createClass(CategoryView, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.fetchCategory(this.props.params.id);
+    }
+  }, {
+    key: 'displayHeader',
+    value: function displayHeader() {
+      var category = this.props.category;
+
+      if (_lodash2.default.isEmpty(category)) {
+        return;
+      }
+
+      return _react2.default.createElement(
+        'h2',
+        null,
+        'Category: ',
+        category.attributes.name
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'category-view container' },
+        _react2.default.createElement('div', { className: 'col m2' }),
+        _react2.default.createElement(
+          'div',
+          { className: 'col m10' },
+          this.displayHeader()
+        )
+      );
+    }
+  }]);
+
+  return CategoryView;
+}(_react.Component);
+
+CategoryView.contextTypes = {
+  router: _react.PropTypes.object
+};
+
+
+function mapStateToProps(state) {
+  return { category: state.categories.category };
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchCategory: _actions.fetchCategory })(CategoryView);
+
+/***/ }),
+
+/***/ 157:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1241,7 +1306,7 @@ exports.default = function () {
 
 /***/ }),
 
-/***/ 155:
+/***/ 158:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1255,7 +1320,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(25);
+var _reactRouter = __webpack_require__(20);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1353,7 +1418,7 @@ exports.default = function () {
 
 /***/ }),
 
-/***/ 156:
+/***/ 159:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1367,7 +1432,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(25);
+var _reactRouter = __webpack_require__(20);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1420,7 +1485,7 @@ exports.default = function () {
 
 /***/ }),
 
-/***/ 157:
+/***/ 160:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1436,13 +1501,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(35);
+var _reactRedux = __webpack_require__(29);
 
-var _lodash = __webpack_require__(292);
+var _lodash = __webpack_require__(94);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _actions = __webpack_require__(151);
+var _reactRouter = __webpack_require__(20);
+
+var _actions = __webpack_require__(78);
 
 var actions = _interopRequireWildcard(_actions);
 
@@ -1495,7 +1562,15 @@ var LandingView = function (_Component) {
               'I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.'
             )
           ),
-          _react2.default.createElement('div', { className: 'card-action' })
+          _react2.default.createElement(
+            'div',
+            { className: 'card-action' },
+            _react2.default.createElement(
+              _reactRouter.Link,
+              { to: '/category/' + category.id },
+              'Show rentals'
+            )
+          )
         )
       );
     }
@@ -1523,14 +1598,14 @@ var LandingView = function (_Component) {
 }(_react.Component);
 
 function mapStateToProps(state) {
-  return { categories: state.categories };
+  return { categories: state.categories.all };
 }
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(LandingView);
 
 /***/ }),
 
-/***/ 158:
+/***/ 161:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1540,23 +1615,29 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : INITIAL_STATE;
   var action = arguments[1];
 
   switch (action.type) {
+    case _types.FETCH_CATEGORY:
+      return _extends({}, state, { category: action.payload.data });
     case _types.FETCH_CATEGORIES:
-      return action.payload.data;
+      return _extends({}, state, { all: action.payload.data });
   }
 
   return state;
 };
 
-var _types = __webpack_require__(78);
+var _types = __webpack_require__(79);
+
+var INITIAL_STATE = { all: [], category: null };
 
 /***/ }),
 
-/***/ 289:
+/***/ 291:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1566,25 +1647,25 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(49);
+var _reactDom = __webpack_require__(50);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRedux = __webpack_require__(35);
+var _reactRedux = __webpack_require__(29);
 
-var _redux = __webpack_require__(29);
+var _redux = __webpack_require__(30);
 
-var _reactRouter = __webpack_require__(25);
+var _reactRouter = __webpack_require__(20);
 
-var _reduxThunk = __webpack_require__(136);
+var _reduxThunk = __webpack_require__(139);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reducers = __webpack_require__(134);
+var _reducers = __webpack_require__(137);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
-var _routes = __webpack_require__(135);
+var _routes = __webpack_require__(138);
 
 var _routes2 = _interopRequireDefault(_routes);
 
@@ -1600,7 +1681,234 @@ _reactDom2.default.render(_react2.default.createElement(
 
 /***/ }),
 
-/***/ 292:
+/***/ 76:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(14);
+var buildURL = __webpack_require__(147);
+var parseHeaders = __webpack_require__(152);
+var transformData = __webpack_require__(77);
+var isURLSameOrigin = __webpack_require__(151);
+var btoa = window.btoa || __webpack_require__(146);
+
+module.exports = function xhrAdapter(resolve, reject, config) {
+  var requestData = config.data;
+  var requestHeaders = config.headers;
+
+  if (utils.isFormData(requestData)) {
+    delete requestHeaders['Content-Type']; // Let the browser set it
+  }
+
+  var request = new XMLHttpRequest();
+
+  // For IE 8/9 CORS support
+  // Only supports POST and GET calls and doesn't returns the response headers.
+  if (window.XDomainRequest && !('withCredentials' in request) && !isURLSameOrigin(config.url)) {
+    request = new window.XDomainRequest();
+  }
+
+  // HTTP basic authentication
+  if (config.auth) {
+    var username = config.auth.username || '';
+    var password = config.auth.password || '';
+    requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
+  }
+
+  request.open(config.method.toUpperCase(), buildURL(config.url, config.params, config.paramsSerializer), true);
+
+  // Set the request timeout in MS
+  request.timeout = config.timeout;
+
+  // Listen for ready state
+  request.onload = function handleLoad() {
+    if (!request) {
+      return;
+    }
+    // Prepare the response
+    var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
+    var responseData = ['text', ''].indexOf(config.responseType || '') !== -1 ? request.responseText : request.response;
+    var response = {
+      data: transformData(
+        responseData,
+        responseHeaders,
+        config.transformResponse
+      ),
+      // IE sends 1223 instead of 204 (https://github.com/mzabriskie/axios/issues/201)
+      status: request.status === 1223 ? 204 : request.status,
+      statusText: request.status === 1223 ? 'No Content' : request.statusText,
+      headers: responseHeaders,
+      config: config
+    };
+
+    // Resolve or reject the Promise based on the status
+    ((response.status >= 200 && response.status < 300) ||
+     (!('status' in request) && response.responseText) ?
+      resolve :
+      reject)(response);
+
+    // Clean up request
+    request = null;
+  };
+
+  // Handle low level network errors
+  request.onerror = function handleError() {
+    // Real errors are hidden from us by the browser
+    // onerror should only fire if it's a network error
+    reject(new Error('Network Error'));
+
+    // Clean up request
+    request = null;
+  };
+
+  // Add xsrf header
+  // This is only done if running in a standard browser environment.
+  // Specifically not if we're in a web worker, or react-native.
+  if (utils.isStandardBrowserEnv()) {
+    var cookies = __webpack_require__(149);
+
+    // Add xsrf header
+    var xsrfValue = config.withCredentials || isURLSameOrigin(config.url) ?
+        cookies.read(config.xsrfCookieName) :
+        undefined;
+
+    if (xsrfValue) {
+      requestHeaders[config.xsrfHeaderName] = xsrfValue;
+    }
+  }
+
+  // Add headers to the request
+  if ('setRequestHeader' in request) {
+    utils.forEach(requestHeaders, function setRequestHeader(val, key) {
+      if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
+        // Remove Content-Type if data is undefined
+        delete requestHeaders[key];
+      } else {
+        // Otherwise add header to the request
+        request.setRequestHeader(key, val);
+      }
+    });
+  }
+
+  // Add withCredentials to request if needed
+  if (config.withCredentials) {
+    request.withCredentials = true;
+  }
+
+  // Add responseType to request if needed
+  if (config.responseType) {
+    try {
+      request.responseType = config.responseType;
+    } catch (e) {
+      if (request.responseType !== 'json') {
+        throw e;
+      }
+    }
+  }
+
+  if (utils.isArrayBuffer(requestData)) {
+    requestData = new DataView(requestData);
+  }
+
+  // Send the request
+  request.send(requestData);
+};
+
+
+/***/ }),
+
+/***/ 77:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(14);
+
+/**
+ * Transform the data for a request or a response
+ *
+ * @param {Object|String} data The data to be transformed
+ * @param {Array} headers The headers for the request or response
+ * @param {Array|Function} fns A single function or Array of functions
+ * @returns {*} The resulting transformed data
+ */
+module.exports = function transformData(data, headers, fns) {
+  /*eslint no-param-reassign:0*/
+  utils.forEach(fns, function transform(fn) {
+    data = fn(data, headers);
+  });
+
+  return data;
+};
+
+
+/***/ }),
+
+/***/ 78:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchCategories = fetchCategories;
+exports.fetchCategory = fetchCategory;
+
+var _types = __webpack_require__(79);
+
+var _axios = __webpack_require__(140);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var API_PATH = 'http://api.sholpy.dev';
+
+function fetchCategories() {
+  return function (dispatch) {
+    _axios2.default.get(API_PATH + '/v1/categories').then(function (response) {
+      dispatch({
+        type: _types.FETCH_CATEGORIES,
+        payload: response.data
+      });
+    });
+  };
+}
+
+function fetchCategory(id) {
+  return function (dispatch) {
+    _axios2.default.get(API_PATH + '/v1/categories/' + id).then(function (response) {
+      dispatch({
+        type: _types.FETCH_CATEGORY,
+        payload: response.data
+      });
+    });
+  };
+}
+
+/***/ }),
+
+/***/ 79:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var FETCH_CATEGORIES = exports.FETCH_CATEGORIES = 'fetch_categories';
+
+var FETCH_CATEGORY = exports.FETCH_CATEGORY = 'fetch_category';
+
+/***/ }),
+
+/***/ 94:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -13956,187 +14264,8 @@ _reactDom2.default.render(_react2.default.createElement(
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(288)(module), __webpack_require__(75)))
-
-/***/ }),
-
-/***/ 76:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(14);
-var buildURL = __webpack_require__(144);
-var parseHeaders = __webpack_require__(149);
-var transformData = __webpack_require__(77);
-var isURLSameOrigin = __webpack_require__(148);
-var btoa = window.btoa || __webpack_require__(143);
-
-module.exports = function xhrAdapter(resolve, reject, config) {
-  var requestData = config.data;
-  var requestHeaders = config.headers;
-
-  if (utils.isFormData(requestData)) {
-    delete requestHeaders['Content-Type']; // Let the browser set it
-  }
-
-  var request = new XMLHttpRequest();
-
-  // For IE 8/9 CORS support
-  // Only supports POST and GET calls and doesn't returns the response headers.
-  if (window.XDomainRequest && !('withCredentials' in request) && !isURLSameOrigin(config.url)) {
-    request = new window.XDomainRequest();
-  }
-
-  // HTTP basic authentication
-  if (config.auth) {
-    var username = config.auth.username || '';
-    var password = config.auth.password || '';
-    requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
-  }
-
-  request.open(config.method.toUpperCase(), buildURL(config.url, config.params, config.paramsSerializer), true);
-
-  // Set the request timeout in MS
-  request.timeout = config.timeout;
-
-  // Listen for ready state
-  request.onload = function handleLoad() {
-    if (!request) {
-      return;
-    }
-    // Prepare the response
-    var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
-    var responseData = ['text', ''].indexOf(config.responseType || '') !== -1 ? request.responseText : request.response;
-    var response = {
-      data: transformData(
-        responseData,
-        responseHeaders,
-        config.transformResponse
-      ),
-      // IE sends 1223 instead of 204 (https://github.com/mzabriskie/axios/issues/201)
-      status: request.status === 1223 ? 204 : request.status,
-      statusText: request.status === 1223 ? 'No Content' : request.statusText,
-      headers: responseHeaders,
-      config: config
-    };
-
-    // Resolve or reject the Promise based on the status
-    ((response.status >= 200 && response.status < 300) ||
-     (!('status' in request) && response.responseText) ?
-      resolve :
-      reject)(response);
-
-    // Clean up request
-    request = null;
-  };
-
-  // Handle low level network errors
-  request.onerror = function handleError() {
-    // Real errors are hidden from us by the browser
-    // onerror should only fire if it's a network error
-    reject(new Error('Network Error'));
-
-    // Clean up request
-    request = null;
-  };
-
-  // Add xsrf header
-  // This is only done if running in a standard browser environment.
-  // Specifically not if we're in a web worker, or react-native.
-  if (utils.isStandardBrowserEnv()) {
-    var cookies = __webpack_require__(146);
-
-    // Add xsrf header
-    var xsrfValue = config.withCredentials || isURLSameOrigin(config.url) ?
-        cookies.read(config.xsrfCookieName) :
-        undefined;
-
-    if (xsrfValue) {
-      requestHeaders[config.xsrfHeaderName] = xsrfValue;
-    }
-  }
-
-  // Add headers to the request
-  if ('setRequestHeader' in request) {
-    utils.forEach(requestHeaders, function setRequestHeader(val, key) {
-      if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
-        // Remove Content-Type if data is undefined
-        delete requestHeaders[key];
-      } else {
-        // Otherwise add header to the request
-        request.setRequestHeader(key, val);
-      }
-    });
-  }
-
-  // Add withCredentials to request if needed
-  if (config.withCredentials) {
-    request.withCredentials = true;
-  }
-
-  // Add responseType to request if needed
-  if (config.responseType) {
-    try {
-      request.responseType = config.responseType;
-    } catch (e) {
-      if (request.responseType !== 'json') {
-        throw e;
-      }
-    }
-  }
-
-  if (utils.isArrayBuffer(requestData)) {
-    requestData = new DataView(requestData);
-  }
-
-  // Send the request
-  request.send(requestData);
-};
-
-
-/***/ }),
-
-/***/ 77:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(14);
-
-/**
- * Transform the data for a request or a response
- *
- * @param {Object|String} data The data to be transformed
- * @param {Array} headers The headers for the request or response
- * @param {Array|Function} fns A single function or Array of functions
- * @returns {*} The resulting transformed data
- */
-module.exports = function transformData(data, headers, fns) {
-  /*eslint no-param-reassign:0*/
-  utils.forEach(fns, function transform(fn) {
-    data = fn(data, headers);
-  });
-
-  return data;
-};
-
-
-/***/ }),
-
-/***/ 78:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var FETCH_CATEGORIES = exports.FETCH_CATEGORIES = 'fetch_categories';
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(136)(module), __webpack_require__(49)))
 
 /***/ })
 
-},[289]);
+},[291]);

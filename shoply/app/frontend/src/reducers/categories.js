@@ -1,11 +1,16 @@
 import {
-  FETCH_CATEGORIES
+  FETCH_CATEGORIES,
+  FETCH_CATEGORY
 } from '../actions/types';
 
-export default function(state = [], action) {
+const INITIAL_STATE = { all: [], category: null };
+
+export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
+    case FETCH_CATEGORY:
+      return { ...state, category: action.payload.data };
     case FETCH_CATEGORIES:
-      return action.payload.data
+      return { ...state, all: action.payload.data };
   }
 
   return state;

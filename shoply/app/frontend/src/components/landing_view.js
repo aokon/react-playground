@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { Link } from 'react-router';
 
 import * as actions from '../actions';
 
@@ -21,6 +22,7 @@ class LandingView extends Component {
               I am convenient because I require little markup to use effectively.</p>
           </div>
           <div className="card-action">
+            <Link to={`/category/${category.id}`}>Show rentals</Link>
           </div>
         </div>
       </div>
@@ -40,7 +42,7 @@ class LandingView extends Component {
 }
 
 function mapStateToProps(state) {
-  return { categories: state.categories };
+  return { categories: state.categories.all };
 }
 
 export default connect(mapStateToProps, actions)(LandingView);
