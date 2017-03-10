@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { fetchCategory } from '../actions';
+import { fetchCategory } from '../../actions';
 
 class CategoryView extends Component {
   static contextTypes = {

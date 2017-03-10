@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Link } from 'react-router';
 
-import * as actions from '../actions';
+import * as actions from '../../actions';
 
 class LandingView extends Component {
   componentWillMount() {
