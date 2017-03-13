@@ -3,6 +3,10 @@ class API::V1::CategoriesController < API::V1::BaseController
     render json: ::Category.all, each_serializer: API::V1::CategorySerializer
   end
 
+  def show
+    render json: category, serializer: API::V1::CategorySerializer
+  end
+
   def create
     API::V1::Category::Create.new(::Category).call(category_params) do |m|
       m.success do |category|
@@ -19,5 +23,9 @@ class API::V1::CategoriesController < API::V1::BaseController
 
   def category_params
     params.require(:category).permit(:name)
+  end
+
+  def category
+    @category ||= ::Category.find(params[:id])
   end
 end

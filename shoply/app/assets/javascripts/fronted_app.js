@@ -42,23 +42,23 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(20);
 
-var _app = __webpack_require__(155);
+var _app = __webpack_require__(154);
 
 var _app2 = _interopRequireDefault(_app);
 
-var _landing = __webpack_require__(297);
+var _landing = __webpack_require__(160);
 
 var _landing2 = _interopRequireDefault(_landing);
 
-var _about = __webpack_require__(294);
+var _about = __webpack_require__(157);
 
 var _about2 = _interopRequireDefault(_about);
 
-var _contact = __webpack_require__(296);
+var _contact = __webpack_require__(159);
 
 var _contact2 = _interopRequireDefault(_contact);
 
-var _category = __webpack_require__(295);
+var _category = __webpack_require__(158);
 
 var _category2 = _interopRequireDefault(_category);
 
@@ -1058,7 +1058,7 @@ module.exports = function spread(callback) {
 
 /***/ }),
 
-/***/ 155:
+/***/ 154:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1074,11 +1074,11 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _header = __webpack_require__(159);
+var _header = __webpack_require__(156);
 
 var _header2 = _interopRequireDefault(_header);
 
-var _footer = __webpack_require__(158);
+var _footer = __webpack_require__(155);
 
 var _footer2 = _interopRequireDefault(_footer);
 
@@ -1127,7 +1127,7 @@ exports.default = App;
 
 /***/ }),
 
-/***/ 158:
+/***/ 155:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1239,7 +1239,7 @@ exports.default = function () {
 
 /***/ }),
 
-/***/ 159:
+/***/ 156:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1306,83 +1306,7 @@ exports.default = function () {
 
 /***/ }),
 
-/***/ 161:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : INITIAL_STATE;
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _types.FETCH_CATEGORY:
-      return _extends({}, state, { category: action.payload.data });
-    case _types.FETCH_CATEGORIES:
-      return _extends({}, state, { all: action.payload.data });
-  }
-
-  return state;
-};
-
-var _types = __webpack_require__(79);
-
-var INITIAL_STATE = { all: [], category: null };
-
-/***/ }),
-
-/***/ 291:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _react = __webpack_require__(2);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(50);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _reactRedux = __webpack_require__(29);
-
-var _redux = __webpack_require__(30);
-
-var _reactRouter = __webpack_require__(20);
-
-var _reduxThunk = __webpack_require__(139);
-
-var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
-
-var _reducers = __webpack_require__(137);
-
-var _reducers2 = _interopRequireDefault(_reducers);
-
-var _routes = __webpack_require__(138);
-
-var _routes2 = _interopRequireDefault(_routes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default)(_redux.createStore);
-
-_reactDom2.default.render(_react2.default.createElement(
-  _reactRedux.Provider,
-  { store: createStoreWithMiddleware(_reducers2.default) },
-  _react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory, routes: _routes2.default })
-), document.getElementById('app'));
-
-/***/ }),
-
-/***/ 294:
+/***/ 157:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1422,7 +1346,7 @@ exports.default = function () {
 
 /***/ }),
 
-/***/ 295:
+/***/ 158:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1516,7 +1440,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchCategory: _ac
 
 /***/ }),
 
-/***/ 296:
+/***/ 159:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1561,7 +1485,7 @@ exports.default = function () {
 
 /***/ }),
 
-/***/ 297:
+/***/ 160:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1678,6 +1602,82 @@ function mapStateToProps(state) {
 }
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(LandingView);
+
+/***/ }),
+
+/***/ 161:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : INITIAL_STATE;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _types.FETCH_CATEGORY:
+      return _extends({}, state, { category: action.payload.data });
+    case _types.FETCH_CATEGORIES:
+      return _extends({}, state, { all: action.payload.data });
+  }
+
+  return state;
+};
+
+var _types = __webpack_require__(79);
+
+var INITIAL_STATE = { all: [], category: null };
+
+/***/ }),
+
+/***/ 291:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(50);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _reactRedux = __webpack_require__(29);
+
+var _redux = __webpack_require__(30);
+
+var _reactRouter = __webpack_require__(20);
+
+var _reduxThunk = __webpack_require__(139);
+
+var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
+var _reducers = __webpack_require__(137);
+
+var _reducers2 = _interopRequireDefault(_reducers);
+
+var _routes = __webpack_require__(138);
+
+var _routes2 = _interopRequireDefault(_routes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default)(_redux.createStore);
+
+_reactDom2.default.render(_react2.default.createElement(
+  _reactRedux.Provider,
+  { store: createStoreWithMiddleware(_reducers2.default) },
+  _react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory, routes: _routes2.default })
+), document.getElementById('app'));
 
 /***/ }),
 
