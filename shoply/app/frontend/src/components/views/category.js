@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
+import CategorySidebar from '../category_sidebar';
 import { fetchCategory } from '../../actions';
 
 class CategoryView extends Component {
@@ -11,6 +12,12 @@ class CategoryView extends Component {
 
   componentWillMount() {
     this.props.fetchCategory(this.props.params.id);
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.params.id != this.props.params.id) {
+      this.props.fetchCategory(this.props.params.id);
+    }
   }
 
   displayHeader() {
@@ -25,8 +32,10 @@ class CategoryView extends Component {
 
   render() {
     return (
-      <div className="category-view container">
-        <div className="col m2"></div>
+      <div className="category-view row">
+        <div className="col m2">
+          <CategorySidebar />
+        </div>
         <div className="col m10">
           {this.displayHeader()}
         </div>

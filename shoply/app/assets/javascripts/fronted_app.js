@@ -1368,6 +1368,10 @@ var _lodash = __webpack_require__(94);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
+var _category_sidebar = __webpack_require__(294);
+
+var _category_sidebar2 = _interopRequireDefault(_category_sidebar);
+
 var _actions = __webpack_require__(78);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -1393,6 +1397,13 @@ var CategoryView = function (_Component) {
       this.props.fetchCategory(this.props.params.id);
     }
   }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.params.id != this.props.params.id) {
+        this.props.fetchCategory(this.props.params.id);
+      }
+    }
+  }, {
     key: 'displayHeader',
     value: function displayHeader() {
       var category = this.props.category;
@@ -1413,8 +1424,12 @@ var CategoryView = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'category-view container' },
-        _react2.default.createElement('div', { className: 'col m2' }),
+        { className: 'category-view row' },
+        _react2.default.createElement(
+          'div',
+          { className: 'col m2' },
+          _react2.default.createElement(_category_sidebar2.default, null)
+        ),
         _react2.default.createElement(
           'div',
           { className: 'col m10' },
@@ -1678,6 +1693,85 @@ _reactDom2.default.render(_react2.default.createElement(
   { store: createStoreWithMiddleware(_reducers2.default) },
   _react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory, routes: _routes2.default })
 ), document.getElementById('app'));
+
+/***/ }),
+
+/***/ 294:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(29);
+
+var _reactRouter = __webpack_require__(20);
+
+var _actions = __webpack_require__(78);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CategorySidebar = function (_Component) {
+  _inherits(CategorySidebar, _Component);
+
+  function CategorySidebar() {
+    _classCallCheck(this, CategorySidebar);
+
+    return _possibleConstructorReturn(this, (CategorySidebar.__proto__ || Object.getPrototypeOf(CategorySidebar)).apply(this, arguments));
+  }
+
+  _createClass(CategorySidebar, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.fetchCategories();
+    }
+  }, {
+    key: 'renderCategory',
+    value: function renderCategory(category) {
+      return _react2.default.createElement(
+        'li',
+        { key: category.id, className: 'collection-item' },
+        _react2.default.createElement(
+          _reactRouter.Link,
+          { to: '/category/' + category.id },
+          category.attributes.name
+        )
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'ul',
+        { className: 'collection' },
+        this.props.categories.map(this.renderCategory)
+      );
+    }
+  }]);
+
+  return CategorySidebar;
+}(_react.Component);
+
+function mapStateToProps(state) {
+  return { categories: state.categories.all };
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchCategories: _actions.fetchCategories })(CategorySidebar);
 
 /***/ }),
 
