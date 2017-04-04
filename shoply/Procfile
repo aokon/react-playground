@@ -1,2 +1,2 @@
 web: bundle exec rails s
-frontend: sh -c 'cd app/frontend && npm run dev'
+frontend: sh -c 'cd app/frontend && yarn run dev'

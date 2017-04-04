@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node ./node_modules/webpack/bin/webpack.js -w --color",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "yarn run test -- --watch"
   },
   "author": "",
   "license": "ISC",
