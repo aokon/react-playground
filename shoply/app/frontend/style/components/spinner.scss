@@ -1,0 +1,10 @@
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: $base-padding 0;
+}
+
+.spinner-label {
+  margin: $base-padding 0 0 $base-padding;
+  font-size: $big-font;
+}

@@ -1,0 +1,11 @@
+.alert {
+  padding: $base-padding;
+  border: 2px solid;
+  margin: $base-padding 0;
+}
+
+.alert--error {
+  border-color: $c-alert;
+  background-color: lighten($c-alert, 20%);
+  color: $c-white;
+}

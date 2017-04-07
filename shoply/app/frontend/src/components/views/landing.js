@@ -7,7 +7,7 @@ import * as actions from '../../actions';
 
 class LandingView extends Component {
   componentWillMount() {
-    if(_.isEmpty(this.props.categories)) {
+    if(_.isEmpty(this.props.model)) {
       this.props.fetchCategories();
     }
   }
@@ -29,20 +29,65 @@ class LandingView extends Component {
     );
   }
 
+  renderSpinner() {
+    return (
+      <div className="spinner-wrapper">
+        <div className="preloader-wrapper big active">
+          <div className="spinner-layer spinner-blue-only">
+            <div className="circle-clipper left">
+              <div className="circle"></div>
+            </div>
+            <div className="gap-patch">
+              <div className="circle"></div>
+            </div>
+            <div className="circle-clipper right">
+              <div className="circle"></div>
+            </div>
+          </div>
+        </div>
+        <div className="spinner-label">Loading...</div>
+      </div>
+    );
+  }
+
+  renderErrorHandler() {
+    return (
+      <div className="alert alert--error">{this.props.error}</div>
+    );
+  }
+
+  renderList() {
+    return (
+      <div className="row">
+        {this.props.model.map(this.renderCategory)}
+      </div>
+    );
+  }
+
   render() {
+    let content;
+
+    if(this.props.error) {
+      content = this.renderErrorHandler();
+    } else if(this.props.loading) {
+      content = this.renderSpinner();
+    } else {
+      content = this.renderList();
+    }
+
     return (
       <div className="landing-view">
         <h2>Landing</h2>
-        <div className="row">
-          {this.props.categories.map(this.renderCategory)}
-        </div>
+        {content}
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  return { categories: state.categories.all };
+  const { model, loading, error } = state.categories.all;
+
+  return { model, loading, error };
 }
 
 export default connect(mapStateToProps, actions)(LandingView);
