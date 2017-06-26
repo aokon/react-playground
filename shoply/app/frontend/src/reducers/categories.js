@@ -17,9 +17,17 @@ export default function(state = INITIAL_STATE, action) {
     case FETCH_CATEGORIES:
       return { ...state, all: { model: [], loading: true, error: null } };
     case FETCH_CATEGORIES_SUCCESS:
-      return { ...state, all: { model: action.payload.data, loading: false, error: null } };
+      return { ...state, all: {
+        model: action.payload.data,
+        loading: false,
+        error: null
+      }};
     case FETCH_CATEGORIES_FAILED:
-      return { ...state, all: { model: [], loading: false, error: 'Sorry, something went wrong. Please retry :)' } };
+      return { ...state, all: {
+        model: [],
+        loading: false,
+        error: 'Sorry, something went wrong. Please retry :)'
+      }};
   }
 
   return state;
