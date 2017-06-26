@@ -8,7 +8,7 @@ class API::V1::CategoriesController < API::V1::BaseController
   end
 
   def create
-    API::V1::Category::Create.new(::Category).call(category_params) do |m|
+    API::V1::Category::Create.new(::Category).call(params[:category].to_unsafe_h) do |m|
       m.success do |category|
         render json: category, serializer: API::V1::CategorySerializer, status: :created
       end
@@ -20,10 +20,6 @@ class API::V1::CategoriesController < API::V1::BaseController
   end
 
   private
-
-  def category_params
-    params.require(:category).permit(:name)
-  end
 
   def category
     @category ||= ::Category.find(params[:id])
