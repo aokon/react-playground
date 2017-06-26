@@ -1,8 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router';
+import Link from 'next/link';
 
-export default () => {
-  return(
+export default () => (
     <footer className="page-footer">
       <div className="container">
         <div className="row">
@@ -13,9 +11,9 @@ export default () => {
           <div className="col l4 offset-l2 s12">
             <h5 className="white-text">Links</h5>
             <ul>
-              <li><Link className="grey-text text-lighten-3" to="/">Home</Link></li>
-              <li><Link className="grey-text text-lighten-3" to="/about">About</Link></li>
-              <li><Link className="grey-text text-lighten-3" to="/contact">Contact</Link></li>
+              <li><Link className="grey-text text-lighten-3" href="/">Home</Link></li>
+              <li><Link className="grey-text text-lighten-3" href="/about">About</Link></li>
+              <li><Link className="grey-text text-lighten-3" href="/contact">Contact</Link></li>
               <li><a className="grey-text text-lighten-3" href="#!">Your cart</a></li>
             </ul>
           </div>
@@ -28,5 +26,4 @@ export default () => {
         </div>
       </div>
     </footer>
-  );
-}
+)
