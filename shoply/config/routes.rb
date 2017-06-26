@@ -9,8 +9,4 @@ Rails.application.routes.draw do
       resources :categories
     end
   end
-
-  get "*pages" => 'home#index'
-
-  root to: "home#index"
 end
