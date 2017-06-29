@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
 import withRedux from 'next-redux-wrapper'
+import Link from 'next/link'
 
 import Layout from '../components/layout'
 import * as actions from '../redux/actions'
@@ -21,6 +21,7 @@ class Index extends Component {
               I am convenient because I require little markup to use effectively.</p>
           </div>
           <div className="card-action">
+            <Link href={`/category?id=${category.id}`}>Show more</Link>
           </div>
         </div>
       </div>
@@ -66,12 +67,13 @@ class Index extends Component {
     let content
 
     if(this.props.error) {
-      content = this.renderErrorHandler();
+      content = this.renderErrorHandler()
     } else if(this.props.loading) {
-      content = this.renderSpinner();
+      content = this.renderSpinner()
     } else {
-      content = this.renderList();
+      content = this.renderList()
     }
+
     return(
       <Layout title="Shoply">{content}</Layout>
     )
