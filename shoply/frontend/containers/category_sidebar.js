@@ -13,7 +13,7 @@ class CategorySidebar extends Component {
   renderCategory(category) {
     return (
       <li key={category.id} className="collection-item">
-        <Link href={`/category?id=${category.id}`}>{category.attributes.name}</Link>
+        <Link href={`/category?id=${category.id}`} as={`/category/${category.id}`}>{category.attributes.name}</Link>
       </li>
     )
   }

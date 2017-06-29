@@ -21,7 +21,7 @@ class Index extends Component {
               I am convenient because I require little markup to use effectively.</p>
           </div>
           <div className="card-action">
-            <Link href={`/category?id=${category.id}`}>Show more</Link>
+            <Link href={`/category?id=${category.id}`} as={`/category/${category.id}`}>Show more</Link>
           </div>
         </div>
       </div>
