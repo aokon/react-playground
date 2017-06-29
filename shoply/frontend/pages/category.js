@@ -3,7 +3,7 @@ import withRedux from 'next-redux-wrapper'
 
 import Layout from '../components/layout'
 import CategorySidebar from '../containers/category_sidebar'
-import * as actions from '../redux/actions'
+import { fetchCategory } from '../redux/actions'
 import { initStore } from '../redux/store'
 
 class Category extends Component {
@@ -52,4 +52,4 @@ function mapStateToProps(state) {
   return { category: state.categories.category }
 }
 
-export default withRedux(initStore, mapStateToProps, actions)(Category)
+export default withRedux(initStore, mapStateToProps, { fetchCategory })(Category)

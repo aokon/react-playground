@@ -3,7 +3,7 @@ import withRedux from 'next-redux-wrapper'
 import Link from 'next/link'
 
 import Layout from '../components/layout'
-import * as actions from '../redux/actions'
+import { fetchCategories } from '../redux/actions'
 import { initStore } from '../redux/store'
 
 class Index extends Component {
@@ -87,4 +87,4 @@ function mapStateToProps(state) {
   return { model, loading, error }
 }
 
-export default withRedux(initStore, mapStateToProps, actions)(Index)
+export default withRedux(initStore, mapStateToProps, { fetchCategories })(Index)
