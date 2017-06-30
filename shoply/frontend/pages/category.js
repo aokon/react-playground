@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
 
 import Layout from '../components/layout'
@@ -23,7 +23,7 @@ class Category extends Component {
   }
 
   displayHeader() {
-    const category = this.props.category;
+    const category = this.props.category
 
     if(!category.model) {
       return

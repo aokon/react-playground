@@ -25,7 +25,7 @@ class Index extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 
   renderSpinner() {
@@ -46,13 +46,13 @@ class Index extends Component {
         </div>
         <div className="spinner-label">Loading...</div>
       </div>
-    );
+    )
   }
 
   renderErrorHandler() {
     return (
       <div className="alert alert--error">{this.props.error}</div>
-    );
+    )
   }
 
   renderList() {
@@ -60,7 +60,7 @@ class Index extends Component {
       <div className="row">
         {this.props.model.map(this.renderCategory)}
       </div>
-    );
+    )
   }
 
   render() {

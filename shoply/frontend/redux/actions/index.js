@@ -12,7 +12,7 @@ export function fetchCategories() {
         payload: response.data
       })
     }).catch(() => {
-      dispatch({ type: types.FETCH_CATEGORIES_FAILED });
+      dispatch({ type: types.FETCH_CATEGORIES_FAILED })
     })
   }
 }
