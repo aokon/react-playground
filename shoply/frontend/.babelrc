@@ -17,7 +17,9 @@
     ["transform-define", "./env-config.js"]
   ],
   "presets": [
-    "next/babel"
+    "next/babel",
+    "react",
+    "es2015"
   ],
   "ignore": []
 }
