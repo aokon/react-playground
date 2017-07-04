@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
-import Link from 'next/link'
 
 import Layout from '../components/layout'
+import CategoryCard from '../components/category_card'
 import Spinner from '../components/spinner'
 import { fetchCategories } from '../redux/actions'
 import { initStore } from '../redux/store'
@@ -10,23 +10,6 @@ import { initStore } from '../redux/store'
 class Index extends Component {
   componentWillMount() {
     this.props.fetchCategories()
-  }
-
-  renderCategory(category) {
-    return (
-      <div key={category.id} className="col s12 m6 category-card">
-        <div className="card blue-grey darken-1">
-          <div className="card-content white-text">
-            <span className="card-title">{category.attributes.name}</span>
-            <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
-          </div>
-          <div className="card-action">
-            <Link href={`/category?id=${category.id}`} as={`/category/${category.id}`}>Show more</Link>
-          </div>
-        </div>
-      </div>
-    )
   }
 
   renderErrorHandler() {
@@ -38,7 +21,9 @@ class Index extends Component {
   renderList() {
     return (
       <div className="row">
-        {this.props.model.map(this.renderCategory)}
+        {this.props.model.map((category) => { 
+          return <CategoryCard category={category} />
+        })}
       </div>
     )
   }
@@ -58,7 +43,6 @@ class Index extends Component {
       <Layout title="Shoply">{content}</Layout>
     )
   }
-
 }
 
 function mapStateToProps(state) {
