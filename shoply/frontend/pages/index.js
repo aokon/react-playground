@@ -22,7 +22,7 @@ class Index extends Component {
     return (
       <div className="row">
         {this.props.model.map((category) => { 
-          return <CategoryCard category={category} />
+          return <CategoryCard key={category.id} category={category} />
         })}
       </div>
     )
