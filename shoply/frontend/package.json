@@ -6,7 +6,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "test": "jest --watch --coverage"
+    "test": "jest --watch --coverage",
+    "lint": "eslint ."
   },
   "dependencies": {
     "axios": "^0.16.2",
