@@ -3,6 +3,7 @@ import withRedux from 'next-redux-wrapper'
 import Link from 'next/link'
 
 import Layout from '../components/layout'
+import Spinner from '../components/spinner'
 import { fetchCategories } from '../redux/actions'
 import { initStore } from '../redux/store'
 
@@ -28,27 +29,6 @@ class Index extends Component {
     )
   }
 
-  renderSpinner() {
-    return (
-      <div className="spinner-wrapper">
-        <div className="preloader-wrapper big active">
-          <div className="spinner-layer spinner-blue-only">
-            <div className="circle-clipper left">
-              <div className="circle"></div>
-            </div>
-            <div className="gap-patch">
-              <div className="circle"></div>
-            </div>
-            <div className="circle-clipper right">
-              <div className="circle"></div>
-            </div>
-          </div>
-        </div>
-        <div className="spinner-label">Loading...</div>
-      </div>
-    )
-  }
-
   renderErrorHandler() {
     return (
       <div className="alert alert--error">{this.props.error}</div>
@@ -69,7 +49,7 @@ class Index extends Component {
     if(this.props.error) {
       content = this.renderErrorHandler()
     } else if(this.props.loading) {
-      content = this.renderSpinner()
+      content = <Spinner />
     } else {
       content = this.renderList()
     }
