@@ -3,6 +3,7 @@ import withRedux from 'next-redux-wrapper'
 
 import Layout from '../components/layout'
 import CategorySidebar from '../containers/category_sidebar'
+import CategoryProductsList from '../containers/category_product_list'
 import { fetchCategory } from '../redux/actions'
 import { initStore } from '../redux/store'
 
@@ -41,6 +42,7 @@ class Category extends Component {
           </div>
           <div className="col m10">
             {this.displayHeader()}
+            <CategoryProductsList id={this.props.url.query.id} />
           </div>
         </div>
       </Layout>

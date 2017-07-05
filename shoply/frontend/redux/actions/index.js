@@ -27,3 +27,18 @@ export function fetchCategory(id) {
     })
   }
 }
+
+export function fetchCategoryProducts(id) {
+  return function(dispatch) {
+    dispatch({ type: types.FETCH_CATEGORY_PRODUCTS })
+
+    axios.get(`${API_URL}/v1/products?filter[category_id]=${id}`).then((response) => {
+      dispatch({
+        type: types.FETCH_CATEGORY_PRODUCTS_SUCCESS,
+        payload: response.data
+      })
+    }).catch(() => {
+      dispatch({ type: types.FETCH_CATEGORY_PRODUCTS_FAILED })
+    })
+  }
+}
