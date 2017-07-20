@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
 
 import Spinner from '../components/spinner'
+import Card from '../components/card'
 import { fetchCategoryProducts } from '../redux/actions'
 import { initStore } from '../redux/store'
 
@@ -29,7 +30,10 @@ class CategoryProductList extends Component {
 
     if(this.props.model) {
       content = this.props.model.map((product) => { 
-        return (<h3 key={product.id}>{product.attributes.name}</h3>)
+        return (<Card key={product.id}
+                   model={product}
+                   url={`/product?id=${product.id}`}
+                   urlMap={`/product/${product.id}`} />)
       })
     }
 
@@ -37,7 +41,7 @@ class CategoryProductList extends Component {
   }
 
   render() {
-    let content
+    let content = ''
     
     if(this.props.error) {
       content = this.renderErrorHandler()

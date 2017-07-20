@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
 
 import Layout from '../components/layout'
-import CategoryCard from '../components/category_card'
+import Card from '../components/card'
 import Spinner from '../components/spinner'
 import { fetchCategories } from '../redux/actions'
 import { initStore } from '../redux/store'
@@ -22,7 +22,9 @@ class Index extends Component {
     return (
       <div className="row">
         {this.props.model.map((category) => { 
-          return <CategoryCard key={category.id} category={category} />
+          return <Card key={category.id} model={category}
+                    url={`/category?id=${category.id}`}
+                    urlMap={`/category/${category.id}`} />
         })}
       </div>
     )

@@ -15,7 +15,9 @@ exports[`Footer Conponent 1`] = `
       >
         Category 1
       </span>
-      <p>
+      <p
+        className="card-content"
+      >
         I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.
       </p>
     </div>
@@ -23,7 +25,7 @@ exports[`Footer Conponent 1`] = `
       className="card-action"
     >
       <a
-        href="/category/123123-123123-23234"
+        href="/category?id=123123-123123-23234"
         onClick={[Function]}
       >
         Show more

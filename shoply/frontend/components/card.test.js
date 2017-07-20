@@ -1,6 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import CategoryCard from './category_card'
+import Card from './card'
 
 test('Footer Conponent', () => {
   const category = {
@@ -10,7 +10,9 @@ test('Footer Conponent', () => {
     }
   }
   const component = renderer.create(
-    <CategoryCard category={category} />
+    <Card model={category}
+       url={`/category?id=${category.id}`}
+       url_map={`/category/${category.id}`} />
   )
 
   let tree = component.toJSON()
