@@ -6,8 +6,13 @@ class API::V1::ProductsController < API::V1::BaseController
   private
 
   def load_products
-    category_id = params[:filter][:category_id]
     products = ::Product.all
-    products.for_category(category_id)  if category_id
+
+    if params[:filter]
+      filters = API::V1::ProductsFiltersValidator.(params[:filter].to_unsafe_h)
+      products = products.for_category(filters.output[:category_id])  if filters.output[:category_id] 
+    end
+
+    products
   end
 end
