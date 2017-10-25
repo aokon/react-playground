@@ -43,12 +43,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'rspec-rails', '~> 3.5'
   gem 'factory_girl_rails'
-  gem 'rails-controller-testing'
   gem 'pry-rails'
-end
-
-group :test do
-  gem 'rspec-api_helpers'
 end
 
 group :development do

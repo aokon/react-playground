@@ -1,10 +1,10 @@
-Rspec.shared_examples 'success request' do
+RSpec.shared_examples 'success request' do
   it 'returns 200 http status' do
     expect(last_response.status).to eq(200)
   end
 end
 
-Rspec.shared_examples 'not found resource' do
+RSpec.shared_examples 'not found resource' do
   it 'returns 404 http status' do
     expect(last_response.status).to eq(404)
   end
@@ -16,7 +16,7 @@ Rspec.shared_examples 'not found resource' do
   end
 end
 
-Rspec.shared_examples 'collection with valid items number' do |options|
+RSpec.shared_examples 'collection with valid items number' do |options|
   it 'returns valid number of results' do
     results = json_body(last_response.body)[:data];
 
@@ -24,7 +24,7 @@ Rspec.shared_examples 'collection with valid items number' do |options|
   end
 end
 
-Rspec.shared_examples 'collection with valid item format' do |options|
+RSpec.shared_examples 'collection with valid item format' do |options|
   it 'returns response with valid item format' do
     record = json_body(last_response.body)[:data].first;
 
@@ -33,7 +33,7 @@ Rspec.shared_examples 'collection with valid item format' do |options|
   end
 end
 
-Rspec.shared_examples 'resource with valid format' do |options|
+RSpec.shared_examples 'resource with valid format' do |options|
   it 'returns response with valid item format' do
     record = json_body(last_response.body)[:data];
 
