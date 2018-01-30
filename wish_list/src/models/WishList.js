@@ -27,3 +27,8 @@ export const WishList = types.model({
       }
     })
   )
+  .views(self => ({
+    get totalPrice() {
+      return self.items.reduce((sum, entry) => sum + entry.price, 0)
+    }
+  }))
