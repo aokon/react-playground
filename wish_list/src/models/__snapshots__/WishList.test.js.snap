@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`can add a new WishListItem to the list 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "image": "",
+      "name": "Dummy",
+      "price": 10,
+    },
+  ],
+}
+`;
