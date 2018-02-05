@@ -11,6 +11,10 @@ class WishListView extends Component {
     return (
       <div className="wish-list-view">
         {this.renderList()}
+        <hr />
+        <div className="wish-list-view__total-price">
+          Total Price: {this.props.wishList.totalPrice}
+        </div>
       </div>
     )
   }
