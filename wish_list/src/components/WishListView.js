@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
+import { observer } from 'mobx-react'
 
 import WishListItemView from './WishListItemView'
 
 class WishListView extends Component {
   renderList() {
-    return this.props.wishList.items.map((item) => <WishListItemView key={item.name} item={item} /> )
+    return this.props.wishList.items.map((item) =>
+      <WishListItemView key={item.name} item={item} />
+    )
   }
 
   render() {
@@ -20,4 +23,4 @@ class WishListView extends Component {
   }
 }
 
-export default WishListView
+export default observer(WishListView)

@@ -20,4 +20,9 @@ import { WishList } from './models/WishList'
   })
 
 ReactDOM.render(<App wishList={list} />, document.getElementById('root'));
+
+setInterval(() => {
+  list.items[0].changePrice(list.items[0].price + 1.99)
+}, 2000)
+
 registerServiceWorker();
