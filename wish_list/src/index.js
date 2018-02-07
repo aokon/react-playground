@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { onSnapshot } from 'mobx-state-tree'
+// import { onSnapshot } from 'mobx-state-tree'
 import registerServiceWorker from './registerServiceWorker';
 
 import App from './components/App';
 import { WishList } from './models/WishList'
+import { getSnapshot } from 'mobx-state-tree';
 
 let initialState = {
   items: [
@@ -20,20 +21,37 @@ let initialState = {
   ]
 }
 
-if(localStorage.getItem('wish-list-app')) {
-  const json = JSON.parse(localStorage.getItem('wish-list-app'))
+// if(localStorage.getItem('wish-list-app')) {
+//   const json = JSON.parse(localStorage.getItem('wish-list-app'))
 
-  // check if the loaded data from localstorage have valid schema
-  if(WishList.is(json)) {
-    initialState = json
-  }
+//   // check if the loaded data from localstorage have valid schema
+//   if(WishList.is(json)) {
+//     initialState = json
+//   }
+// }
+
+let list = WishList.create(initialState)
+
+// onSnapshot(list, snapshot => {
+//   localStorage.setItem('wish-list-app', JSON.stringify(snapshot))
+// })
+
+function renderApp() {
+  ReactDOM.render(<App wishList={list} />, document.getElementById('root'));
 }
 
-const list = WishList.create(initialState)
+renderApp()
 
-onSnapshot(list, snapshot => {
-  localStorage.setItem('wish-list-app', JSON.stringify(snapshot))
-})
+if(module.hot) {
+  module.hot.accept(['./components/App'], () => {
+    renderApp()
+  })
 
-ReactDOM.render(<App wishList={list} />, document.getElementById('root'));
+  module.hot.accept(['./models/WishList'], () => {
+    const snapshot = getSnapshot(list)
+    list = WishList.create(snapshot)
+    renderApp()
+  })
+}
+
 registerServiceWorker();
