@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 
 import WishListItemView from './WishListItemView'
+import WishListNewItem from './WishListNewItem'
 
 class WishListView extends Component {
   renderList() {
@@ -13,6 +14,7 @@ class WishListView extends Component {
   render() {
     return (
       <div className="wish-list-view">
+        <WishListNewItem wishList={this.props.wishList} />
         {this.renderList()}
         <hr />
         <div className="wish-list-view__total-price">
