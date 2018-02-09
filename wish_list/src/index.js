@@ -5,20 +5,32 @@ import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 
 import App from './components/App';
-import { WishList } from './models/WishList'
+import { Group } from './models/Group'
 import { getSnapshot } from 'mobx-state-tree';
 
 let initialState = {
-  items: [
-    {
-      name: 'Dummy 1',
-      price: 14.7
+  users: {
+    1: {
+      id: '1',
+      name: 'Homer',
+      gender: 'm'
     },
-    {
-      name: 'Dummy 2',
-      price: 12.2
+    2: {
+      id: '2',
+      name: 'Marge',
+      gender: 'w'
     },
-  ]
+    3: {
+      id: '3',
+      name: 'Bart',
+      gender: 'm'
+    },
+    4: {
+      id: '4',
+      name: 'Lisa',
+      gender: 'w'
+    }
+  }
 }
 
 // if(localStorage.getItem('wish-list-app')) {
@@ -30,14 +42,14 @@ let initialState = {
 //   }
 // }
 
-let list = WishList.create(initialState)
+let group = Group.create(initialState)
 
 // onSnapshot(list, snapshot => {
 //   localStorage.setItem('wish-list-app', JSON.stringify(snapshot))
 // })
 
 function renderApp() {
-  ReactDOM.render(<App wishList={list} />, document.getElementById('root'));
+  ReactDOM.render(<App group={group} />, document.getElementById('root'));
 }
 
 renderApp()
@@ -47,9 +59,9 @@ if(module.hot) {
     renderApp()
   })
 
-  module.hot.accept(['./models/WishList'], () => {
-    const snapshot = getSnapshot(list)
-    list = WishList.create(snapshot)
+  module.hot.accept(['./models/Group'], () => {
+    const snapshot = getSnapshot(group)
+    group = Group.create(snapshot)
     renderApp()
   })
 }
