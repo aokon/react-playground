@@ -17,6 +17,7 @@ class App extends Component {
 
   render() {
     const { group } = this.props
+    const { selectedUser } = this.state
 
     return (
       <div className="app">
@@ -26,7 +27,8 @@ class App extends Component {
           {group.users.values().map((user) => (<option key={user.id} value={user.id}>{user.name}</option>))}
         </select>
         <hr />
-        {this.state.selectedUser && <WishListView wishList={this.state.selectedUser.wishList} />}
+        {selectedUser && <WishListView wishList={selectedUser.wishList} />}
+        {selectedUser && <button onClick={selectedUser.getSugestions}>Load suggestions</button>}
       </div>
     );
   }

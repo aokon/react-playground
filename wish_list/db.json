@@ -1,0 +1,22 @@
+{
+  "suggestions_w": [
+    {
+      "name": "Name f1",
+      "price": 32.22
+    },
+    {
+      "name": "Name f2",
+      "price": 2.22
+    }
+  ],
+  "suggestions_m": [
+    {
+      "name": "Name m1",
+      "price": 22.99
+    },
+    {
+      "name": "Name m2",
+      "price": 12.2
+    }
+  ]
+}
