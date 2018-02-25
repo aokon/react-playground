@@ -42,7 +42,7 @@ let initialState = {
 //   }
 // }
 
-let group = Group.create(initialState)
+let group = window.group = Group.create(initialState)
 
 // onSnapshot(list, snapshot => {
 //   localStorage.setItem('wish-list-app', JSON.stringify(snapshot))
@@ -61,7 +61,7 @@ if(module.hot) {
 
   module.hot.accept(['./models/Group'], () => {
     const snapshot = getSnapshot(group)
-    group = Group.create(snapshot)
+    group = window.group = Group.create(snapshot)
     renderApp()
   })
 }
