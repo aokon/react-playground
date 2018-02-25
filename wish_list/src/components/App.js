@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import WishListView from './WishListView'
+import User from './User'
 
 class App extends Component {
   constructor() {
@@ -26,9 +26,9 @@ class App extends Component {
           <option>Select User</option>
           {group.users.values().map((user) => (<option key={user.id} value={user.id}>{user.name}</option>))}
         </select>
+        <button onClick={group.drawLots}>Draw lots</button>
         <hr />
-        {selectedUser && <WishListView wishList={selectedUser.wishList} />}
-        {selectedUser && <button onClick={selectedUser.getSugestions}>Load suggestions</button>}
+        {selectedUser && <User user={selectedUser} />}
       </div>
     );
   }

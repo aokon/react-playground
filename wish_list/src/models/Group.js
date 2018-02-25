@@ -1,4 +1,4 @@
-import { types, flow } from 'mobx-state-tree'
+import { types, flow, getParent } from 'mobx-state-tree'
 
 import { WishList } from './WishList'
 
@@ -18,14 +18,14 @@ import { WishList } from './WishList'
 
 export const User = types
   .model({
-    id: types.string,
+    id: types.identifier(),
     name: types.string,
     gender: types.enumeration('gender', ['m', 'w']),
-    wishList: types.optional(WishList, {})
+    wishList: types.optional(WishList, {}),
+    recipient: types.maybe(types.reference(types.late(() => User)))
   })
   .actions(self => ({
     getSugestions: flow(function * () {
-      console.log(self.gender)
       const response = yield window.fetch(`http://localhost:3001/suggestions_${self.gender}`)
       self.wishList.items.push(...(yield response.json()))
     })
@@ -35,3 +35,10 @@ export const Group = types
   .model({
     users: types.map(User)
   })
+  .actions(self => ({
+    drawLots: () => {
+      self.users.forEach((user) => {
+        user.recipient = self.users.get(Math.floor(Math.random() * self.users.size))
+      })
+    },
+  }))
