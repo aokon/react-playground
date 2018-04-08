@@ -16,15 +16,15 @@ import { WishList } from './WishList'
 
 // const Human = types.union(Women, Men)
 
-export const User = types
-  .model({
+const UserBase = types.model({
     id: types.identifier(),
     name: types.string,
     gender: types.enumeration('gender', ['m', 'w']),
     wishList: types.optional(WishList, {}),
     recipient: types.maybe(types.reference(types.late(() => User)))
   })
-  .actions(self => ({
+
+const UserActions = types.model({}).actions(self => ({
     getSugestions: flow(function* () {
       const response = yield window.fetch(`http://localhost:3001/suggestions_${self.gender}`)
       self.wishList.items.push(...(yield response.json()))
@@ -47,6 +47,8 @@ export const User = types
       onSnapshot(self, self.save)
     }
   }))
+
+export const User = types.compose(UserBase, UserActions)
 
 export const Group = types
   .model({
