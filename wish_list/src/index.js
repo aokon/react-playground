@@ -8,30 +8,7 @@ import App from './components/App';
 import { Group } from './models/Group'
 import { getSnapshot } from 'mobx-state-tree';
 
-let initialState = {
-  users: {
-    1: {
-      id: '1',
-      name: 'Homer',
-      gender: 'm'
-    },
-    2: {
-      id: '2',
-      name: 'Marge',
-      gender: 'w'
-    },
-    3: {
-      id: '3',
-      name: 'Bart',
-      gender: 'm'
-    },
-    4: {
-      id: '4',
-      name: 'Lisa',
-      gender: 'w'
-    }
-  }
-}
+let initialState = { users: {} }
 
 // if(localStorage.getItem('wish-list-app')) {
 //   const json = JSON.parse(localStorage.getItem('wish-list-app'))
@@ -43,7 +20,6 @@ let initialState = {
 // }
 
 let group = window.group = Group.create(initialState)
-
 // onSnapshot(list, snapshot => {
 //   localStorage.setItem('wish-list-app', JSON.stringify(snapshot))
 // })

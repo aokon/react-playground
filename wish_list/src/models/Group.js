@@ -1,4 +1,4 @@
-import { types, flow, getParent } from 'mobx-state-tree'
+import { types, flow, applySnapshot } from 'mobx-state-tree'
 
 import { WishList } from './WishList'
 
@@ -25,7 +25,7 @@ export const User = types
     recipient: types.maybe(types.reference(types.late(() => User)))
   })
   .actions(self => ({
-    getSugestions: flow(function * () {
+    getSugestions: flow(function* () {
       const response = yield window.fetch(`http://localhost:3001/suggestions_${self.gender}`)
       self.wishList.items.push(...(yield response.json()))
     })
@@ -36,6 +36,14 @@ export const Group = types
     users: types.map(User)
   })
   .actions(self => ({
+    afterCreate: () => {
+      self.load()
+    },
+    load: flow(function* (){
+      const response = yield window.fetch(`http://localhost:3001/users`)
+      // compare state that already exists with a state that receives and make few changes as posible
+      applySnapshot(self.users, yield response.json())
+    }),
     drawLots: () => {
       self.users.forEach((user) => {
         user.recipient = self.users.get(Math.floor(Math.random() * self.users.size))

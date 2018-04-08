@@ -18,5 +18,63 @@
       "name": "Name m2",
       "price": 12.2
     }
-  ]
+  ],
+  "users": {
+    "1ab": {
+      "id":"1ab",
+      "name":"Homer",
+      "gender":"m",
+      "wishList": {"items":[]},
+      "recipient":null
+    },
+    "2cd": {
+      "id":"2cd",
+      "name":"Marge",
+      "gender":"w",
+      "wishList":{"items":[]},
+      "recipient":null
+    },
+    "3ag": {
+      "id":"3ag",
+      "name":"Bart",
+      "gender":"m",
+      "wishList":{"items":[]},
+      "recipient":null
+    },
+    "4ry": {
+      "id":"4ry",
+      "name":"Lisa",
+      "gender":"w",
+      "wishList":{"items":[]},
+      "recipient":null
+    }
+  },
+  "1ab": {
+    "id":"1ab",
+    "name":"Homer",
+    "gender":"m",
+    "wishList": {"items":[]},
+    "recipient":null
+  },
+  "2cd": {
+    "id":"2cd",
+    "name":"Marge",
+    "gender":"w",
+    "wishList":{"items":[]},
+    "recipient":null
+  },
+  "3ag": {
+    "id":"3ag",
+    "name":"Bart",
+    "gender":"m",
+    "wishList":{"items":[]},
+    "recipient":null
+  },
+  "4ry": {
+    "id":"4ry",
+    "name":"Lisa",
+    "gender":"w",
+    "wishList":{"items":[]},
+    "recipient":null
+  }
 }
