@@ -27,6 +27,7 @@ class App extends Component {
           {group.users.values().map((user) => (<option key={user.id} value={user.id}>{user.name}</option>))}
         </select>
         <button onClick={group.drawLots}>Draw lots</button>
+        <button onClick={group.reload}>Reload</button>
         <hr />
         {selectedUser && <User user={selectedUser} />}
       </div>

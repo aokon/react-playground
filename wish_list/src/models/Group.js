@@ -35,18 +35,39 @@ export const Group = types
   .model({
     users: types.map(User)
   })
-  .actions(self => ({
-    afterCreate: () => {
-      self.load()
-    },
-    load: flow(function* (){
-      const response = yield window.fetch(`http://localhost:3001/users`)
-      // compare state that already exists with a state that receives and make few changes as posible
-      applySnapshot(self.users, yield response.json())
-    }),
-    drawLots: () => {
-      self.users.forEach((user) => {
-        user.recipient = self.users.get(Math.floor(Math.random() * self.users.size))
-      })
-    },
-  }))
+  .actions(self => {
+    let controller
+
+    return {
+      afterCreate: () => {
+        self.load()
+      },
+      load: flow(function* (){
+        controller = new window.AbortController()
+
+        try {
+          const response = yield window.fetch(
+            'http://localhost:3001/users',
+            { signal: controller.signal }
+          )
+          // compare state that already exists with a state that receives and make few changes as posible
+          applySnapshot(self.users, yield response.json())
+        } catch(e) {
+          console.log('aborted: ', e)
+        }
+      }),
+      reload() {
+        if(controller) controller.abort()
+        self.load()
+      },
+      beforeDestroy() {
+        if(controller) controller.abort()
+      },
+      drawLots: () => {
+        self.users.forEach((user) => {
+          user.recipient = self.users.get(Math.floor(Math.random() * self.users.size))
+        })
+      },
+    }
+  }
+)
