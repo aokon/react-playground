@@ -9,13 +9,8 @@ class ProductListWrapper extends Component {
   }
 
   render() {
-    if (this.props.products.loading) {
-      return (
-        <strong>Loading...</strong>
-      );
-    }
     return (
-      <ProductList products={this.props.products.model} />
+      <ProductList {...this.props} />
     );
   }
 }
