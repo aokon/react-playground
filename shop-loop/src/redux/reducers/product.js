@@ -1,4 +1,5 @@
 import { loop, Cmd } from 'redux-loop';
+import API from '../../api';
 
 const defaultState = {
   model: [],
@@ -9,12 +10,6 @@ const defaultState = {
 const PRODUCT_INIT          = 'PRODUCT_INIT';
 const PRODUCT_FETCH_SUCCESS = 'PRODUCT_FETCH_SUCCESS';
 const PRODUCT_FETCH_ERROR   = 'PRODUCT_FETCH_ERROR';
-
-const API_HOST = 'http://localhost:3001';
-
-const fetchProduct = (id) => {
-  return fetch(`${API_HOST}/products/${id}`).then(response => response.json());
-}
 
 export const productInit = (id) => ({
   type: PRODUCT_INIT,
@@ -36,7 +31,7 @@ export default (state = defaultState, action) => {
   case PRODUCT_INIT:
     return loop(
       { ...state, loading: true },
-      Cmd.run(fetchProduct, {
+      Cmd.run(API.fetchProduct, {
         successActionCreator: productFetchOnSuccess,
         failActionCreator: productFetchOnError,
         args: [action.id]
