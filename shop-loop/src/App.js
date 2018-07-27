@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import Home from './pages/Home';
 import About from './pages/About';
+import ProductLanding from './pages/ProductLanding';
 
 export default () => (
   <Router>
@@ -15,6 +16,7 @@ export default () => (
         </ul>
       </nav>
       <Route exact path="/" component={Home} />
+      <Route exact path="/products/:id" component={ProductLanding} />
       <Route path="/about" component={About} />
     </div>
   </Router>
