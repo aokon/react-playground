@@ -36,7 +36,7 @@ export default (state = defaultState, action) => {
       })
     );
   case PRODUCTS_FETCH_SUCCESS:
-    return { ...state, model: action.products, loading: false };
+    return { ...state, model: action.products, loading: false, error: undefined };
   case PRODUCTS_FETCH_ERROR:
     return { ...state, error: action.error, loading: false };
   default:

@@ -1,10 +1,17 @@
 import React from 'react';
 import Spinner from '../Spinner/Spinner';
+import Notice from '../Notice/Notice';
 
-export default ({ product: { model, loading } }) => {
+export default ({ product: { model, loading, error } }) => {
   if (loading) {
     return (
       <Spinner />
+    );
+  }
+
+  if (error) {
+    return (
+      <Notice type="error" model={error}/>
     );
   }
 
