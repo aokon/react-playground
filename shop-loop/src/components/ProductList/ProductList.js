@@ -1,9 +1,12 @@
 import React from 'react';
 import ProductItem from './ProductItem';
+import Spinner from '../Spinner/Spinner';
 
 export default ({ products: { model, loading } }) => {
   if (loading) {
-    return <strong>Loading...</strong>;
+    return (
+      <Spinner />
+    );
   }
 
   return (
