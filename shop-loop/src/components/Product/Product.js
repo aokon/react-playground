@@ -11,7 +11,7 @@ export default ({ product: { model, loading, error } }) => {
 
   if (error) {
     return (
-      <Notice type="error" model={error}/>
+      <Notice type="error" message={error.message}/>
     );
   }
 
