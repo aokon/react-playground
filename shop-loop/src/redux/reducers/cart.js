@@ -18,8 +18,9 @@ export default (state = defaultState, { type, payload }) => {
   case ADD_TO_CART:
     return { ...state, [payload.id]: payload };
   case REMOVE_FROM_CART:
-    const { [payload.id]: value, ...rest } = state;
-    return { ...rest };
+    const newState = Object.assign({}, state);
+    delete newState[payload.id];
+    return newState;
   default:
     return state;
   }
