@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import ProductList from './ProductList';
-import withAsyncResource from '../withAsyncResource/withAsyncResource';
+import withAsyncResource from '../../hoc/withAsyncResource/withAsyncResource';
 import { productsInit } from '../../redux/reducers/products';
 
 const mapStateToProps = (state) => ({
