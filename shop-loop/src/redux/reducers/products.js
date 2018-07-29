@@ -17,16 +17,16 @@ export const productsInit = () => ({
 
 const productsFetchOnSuccess = (products) => ({
   type: PRODUCTS_FETCH_SUCCESS,
-  products
+  payload: products
 });
 
 const productsFetchOnError = (error) => ({
   type: PRODUCTS_FETCH_ERROR,
-  error
+  payload: error
 });
 
-export default (state = defaultState, action) => {
-  switch(action.type) {
+export default (state = defaultState, { type, payload }) => {
+  switch(type) {
   case PRODUCTS_INIT:
     return loop(
       { ...state, loading: true },
@@ -36,9 +36,9 @@ export default (state = defaultState, action) => {
       })
     );
   case PRODUCTS_FETCH_SUCCESS:
-    return { ...state, model: action.products, loading: false, error: undefined };
+    return { ...state, model: payload, loading: false, error: undefined };
   case PRODUCTS_FETCH_ERROR:
-    return { ...state, error: action.error, loading: false };
+    return { ...state, error: payload, loading: false };
   default:
     return state;
   }

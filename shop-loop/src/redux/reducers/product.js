@@ -13,34 +13,34 @@ const PRODUCT_FETCH_ERROR   = 'PRODUCT_FETCH_ERROR';
 
 export const productInit = (id) => ({
   type: PRODUCT_INIT,
-  id
+  payload: id
 });
 
 const productFetchOnSuccess = (product) => ({
   type: PRODUCT_FETCH_SUCCESS,
-  product
+  payload: product
 });
 
 const productFetchOnError = (error) => ({
   type: PRODUCT_FETCH_ERROR,
-  error
+  payload: error
 });
 
-export default (state = defaultState, action) => {
-  switch(action.type) {
+export default (state = defaultState, { type, payload }) => {
+  switch(type) {
   case PRODUCT_INIT:
     return loop(
       { ...state, loading: true },
       Cmd.run(API.fetchProduct, {
         successActionCreator: productFetchOnSuccess,
         failActionCreator: productFetchOnError,
-        args: [action.id]
+        args: [payload]
       })
     );
   case PRODUCT_FETCH_SUCCESS:
-    return { ...state, model: action.product, loading: false, error: undefined };
+    return { ...state, model: payload, loading: false, error: undefined };
   case PRODUCT_FETCH_ERROR:
-    return { ...state, error: action.error, loading: false };
+    return { ...state, error: payload, loading: false };
   default:
     return state;
   }
