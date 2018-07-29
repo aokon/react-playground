@@ -3,7 +3,7 @@ import ProductItem from './ProductItem';
 import Spinner from '../Spinner/Spinner';
 import Notice from '../Notice/Notice';
 
-export default ({ products: { model, loading, error } }) => {
+export default ({ products: { model, loading, error }, onClick }) => {
   if (loading) {
     return (
       <Spinner />
@@ -18,7 +18,8 @@ export default ({ products: { model, loading, error } }) => {
 
   return (
     <div className="products-list">
-      {model.map((product) => <ProductItem key={product.id} product={product} />)}
+      {model.map((product) =>
+         <ProductItem key={product.id} model={product} onClick={onClick} />)}
     </div>
   );
 }
