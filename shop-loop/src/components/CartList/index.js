@@ -4,7 +4,7 @@ import CartList from './CartList';
 import { removeFromCart } from '../../redux/reducers/cart';
 
 const mapStateToProps = (state) => ({
-  model: state.cart
+  model: state.local.cart
 });
 
 const mapDispatchToProps = (dispatch) => ({

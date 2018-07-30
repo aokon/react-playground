@@ -8,6 +8,11 @@ const enhancer = compose(
   install()
 );
 
-export const initStore = (initialState = {}) => {
+const defaultState = {
+  db: {},
+  local: {}
+};
+
+export const initStore = (initialState = defaultState) => {
   return createStore(reducers, initialState, enhancer);
 }

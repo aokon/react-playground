@@ -4,10 +4,18 @@ import products from './products';
 import product  from './product';
 import cart     from './cart';
 
-const rootReducer = combineReducers({
+const db = combineReducers({
   products,
   product,
+});
+
+const local = combineReducers({
   cart
+});
+
+const rootReducer = combineReducers({
+  db,
+  local
 });
 
 export default rootReducer;

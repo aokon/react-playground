@@ -6,7 +6,7 @@ import { addToCart }     from '../../redux/reducers/cart';
 import withAsyncResource from '../../hoc/withAsyncResource/withAsyncResource';
 
 const mapStateToProps = (state) => ({
-  product: state.product
+  product: state.db.product
 })
 
 const mapDispatchToProps = (dispatch) => ({
