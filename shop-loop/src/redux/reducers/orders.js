@@ -1,5 +1,5 @@
 import { Cmd, loop } from 'redux-loop';
-import API from 'src/api';
+import createOrderRequest from 'src/api/createOrderRequest';
 import { resetCart } from 'src/redux/reducers/cart';
 
 const defaultState = { type: 'initial' }
@@ -30,7 +30,7 @@ const reducer = (state = defaultState, action) => {
       return loop({
           type: 'loading',
         },
-        Cmd.run(API.createOrder, {
+        Cmd.run(createOrderRequest, {
           args: [action.payload],
           successActionCreator: createOrderOnSuccess,
           failActionCreator: createOrderOnError 

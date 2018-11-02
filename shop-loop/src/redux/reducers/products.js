@@ -1,5 +1,5 @@
 import { loop, Cmd } from 'redux-loop';
-import API from '../../api';
+import fetchProductsRequest from 'src/api/fetchProductsRequest';
 
 const defaultState = {
   model: [],
@@ -27,28 +27,28 @@ const productsFetchOnError = (error) => ({
 
 const reducer = (state = defaultState, { type, payload }) => {
   switch(type) {
-  case PRODUCTS_INIT:
-    return loop(
-      { ...state, loading: true },
-      Cmd.run(API.fetchProducts, {
-        successActionCreator: productsFetchOnSuccess,
-        failActionCreator: productsFetchOnError
-      })
-    );
-  case PRODUCTS_FETCH_SUCCESS:
-    return loop(
-      { ...state, model: payload, loading: false, error: undefined },
-      Cmd.none
-    );
-  case PRODUCTS_FETCH_ERROR:
+    case PRODUCTS_INIT:
+      return loop(
+        { ...state, loading: true },
+        Cmd.run(fetchProductsRequest, {
+          successActionCreator: productsFetchOnSuccess,
+          failActionCreator: productsFetchOnError
+        })
+      );
+    case PRODUCTS_FETCH_SUCCESS:
+      return loop(
+        { ...state, model: payload, loading: false, error: undefined },
+        Cmd.none
+      );
+    case PRODUCTS_FETCH_ERROR:
       return loop(
         { ...state, error: payload, loading: false },
         Cmd.none
       );
-  default:
-    return state;
+    default:
+      return state;
   }
-}
+};
 
 export default reducer;
 
