@@ -1,13 +1,13 @@
 import React from 'react';
-import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Navi from './components/Navi';
 
-import Home from './pages/Home';
-import About from './pages/About';
-import Cart from './pages/Cart';
-import ProductLanding from './pages/ProductLanding';
-import Checkout from './pages/Checkout/Checkout';
+import 'src/App.css';
+import Navi from 'src/components/Navi';
+import Home from 'src/pages/Home';
+import About from 'src/pages/About';
+import Cart from 'src/pages/Cart';
+import ProductLanding from 'src/pages/ProductLanding';
+import Checkout from 'src/pages/Checkout/Checkout';
 
 export default () => (
   <Router>
@@ -21,3 +21,4 @@ export default () => (
     </div>
   </Router>
 );
+
