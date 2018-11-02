@@ -7,7 +7,7 @@ import Home from 'src/pages/Home';
 import About from 'src/pages/About';
 import Cart from 'src/pages/Cart';
 import ProductLanding from 'src/pages/ProductLanding';
-import Checkout from 'src/pages/Checkout/Checkout';
+import Checkout from 'src/pages/Checkout';
 
 export default () => (
   <Router>
