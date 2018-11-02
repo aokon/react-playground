@@ -3,7 +3,7 @@ import { Formik, Form, Field } from 'formik';
 import styles from './CheckoutForm.module.css';
 
 const customerDefaults = {
-  emaill: '',
+  email: '',
   title: '',
   firstName: '',
   lastName: '',
@@ -13,11 +13,13 @@ const customerDefaults = {
   mobile: ''
 };
 
-const CheckoutForm = () => {
+const CheckoutForm = (props) => {
+  const { onSubmit } = props;
+
   return (
     <Formik
       initialValues={customerDefaults}
-      onSubmit={() => alert('Submit')}>
+      onSubmit={onSubmit}>
       {({ isSubmiting }) => (
         <Form>
           <div className={styles.field}>
@@ -34,7 +36,7 @@ const CheckoutForm = () => {
             <Field type="text" name="lastName" placeholder="Last Name"/>
           </div>
           <div className={styles.field}>
-            <Field type="email" name="email" placeholder="E-mail"/>
+            <Field type="text" name="email" placeholder="E-mail"/>
           </div>
           <div className={styles.field}>
             <Field type="text" name="street" placeholder="Street"/>
@@ -55,6 +57,10 @@ const CheckoutForm = () => {
       )}
     </Formik>
   );
+};
+
+CheckoutForm.defaultProps = {
+  onSubmit: () => {}
 };
 
 export default CheckoutForm;

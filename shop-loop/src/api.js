@@ -8,11 +8,22 @@ const fetchProduct = (id) => {
   return makeRequest(`/products/${id}`);
 }
 
-const makeRequest = (endpoint) => {
-  return fetch(`${API_HOST}${endpoint}`).then(response => response.json());
+const createOrder = (order) => {
+  const requestParams = {
+    method: 'POST',
+    body: JSON.stringify(order)
+  }
+
+  return makeRequest('/orders', requestParams)
+};
+
+const makeRequest = (endpoint, requestParams = {}) => {
+  return fetch(`${API_HOST}${endpoint}`, { ...requestParams })
+    .then(response => response.json());
 }
 
 export default {
   fetchProducts,
-  fetchProduct
+  fetchProduct,
+  createOrder
 }

@@ -25,7 +25,7 @@ const productsFetchOnError = (error) => ({
   payload: error
 });
 
-export default (state = defaultState, { type, payload }) => {
+const reducer = (state = defaultState, { type, payload }) => {
   switch(type) {
   case PRODUCTS_INIT:
     return loop(
@@ -36,10 +36,19 @@ export default (state = defaultState, { type, payload }) => {
       })
     );
   case PRODUCTS_FETCH_SUCCESS:
-    return { ...state, model: payload, loading: false, error: undefined };
+    return loop(
+      { ...state, model: payload, loading: false, error: undefined },
+      Cmd.none
+    );
   case PRODUCTS_FETCH_ERROR:
-    return { ...state, error: payload, loading: false };
+      return loop(
+        { ...state, error: payload, loading: false },
+        Cmd.none
+      );
   default:
     return state;
   }
 }
+
+export default reducer;
+

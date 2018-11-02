@@ -1,9 +1,14 @@
 import { connect } from 'react-redux';
 import Checkout from 'src/pages/Checkout/Checkout';
+import { createOrder } from 'src/redux/reducers/orders';
 
 const mapStateToProps = state => ({
-  products: Object.values(state.local.cart)
+  cart: state.local.cart
 });
 
-export default connect(mapStateToProps)(Checkout);
+const mapDispatchToProps = dispatch => ({
+  createOrder: order => dispatch(createOrder(order))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
 
