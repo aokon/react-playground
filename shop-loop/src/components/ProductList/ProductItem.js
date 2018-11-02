@@ -10,3 +10,4 @@ export default ({ model, onClick }) => (
     <button onClick={() => onClick(model)}>Add To Cart</button>
   </div>
 );
+

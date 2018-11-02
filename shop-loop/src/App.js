@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Cart from './pages/Cart';
 import ProductLanding from './pages/ProductLanding';
+import Checkout from './pages/Checkout/Checkout';
 
 export default () => (
   <Router>
@@ -16,6 +17,7 @@ export default () => (
       <Route exact path="/products/:id" component={ProductLanding} />
       <Route path="/about" component={About} />
       <Route path="/cart" component={Cart} />
+      <Route path="/checkout" component={Checkout} />
     </div>
   </Router>
 );
