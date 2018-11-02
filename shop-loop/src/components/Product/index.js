@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
-
-import Product           from './Product';
-import { productInit }   from '../../redux/reducers/product';
-import { addToCart }     from '../../redux/reducers/cart';
-import withAsyncResource from '../../hoc/withAsyncResource/withAsyncResource';
+import Product           from 'src/components/Product/Product';
+import { productInit }   from 'src/redux/reducers/product';
+import { addToCart }     from 'src/redux/reducers/cart';
+import withAsyncResource from 'src/components/withAsyncResource/withAsyncResource';
 
 const mapStateToProps = (state) => ({
   product: state.db.product
