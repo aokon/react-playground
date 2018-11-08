@@ -1,5 +1,5 @@
 import React from 'react';
-import Navi from '../components/Navi/Navi';
+import Navi from '~/components/Navi/Navi';
 
 const HomePage = () => (
   <section className="page">

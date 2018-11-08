@@ -41,6 +41,7 @@
   "devDependencies": {
     "babel-jest": "^23.6.0",
     "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-root-import": "^6.1.0",
     "casual": "^1.5.19",
     "enzyme-to-json": "^3.3.4",
     "graphql-tools": "^4.0.0",
@@ -73,7 +74,8 @@
               "ssr": true,
               "displayName": true
             }
-          ]
+          ],
+          ["babel-plugin-root-import"]
         ]
       },
       "production": {
