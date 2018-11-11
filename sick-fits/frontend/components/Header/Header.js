@@ -44,12 +44,12 @@ const Header = () => (
           <a>Sick Bar</a>
         </Link>
       </Logo>
+      <Navi />
     </div>
     <div className="sub-bar">
       <p>Search</p>
     </div>
     <div>Cart</div>
-    <Navi />
   </StyledHeader>
 );
 
