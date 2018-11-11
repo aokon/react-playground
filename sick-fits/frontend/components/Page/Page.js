@@ -1,5 +1,7 @@
 import React from 'react';
-import styled, { ThemeProvider, injectGlobal } from 'styled-components';
+// TODO: add support for server side rendering
+// https://www.styled-components.com/docs/advanced#server-side-rendering
+import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import Header from '~/components/Header/Header';
 import Meta from '~/components/Meta/Meta';
 
@@ -24,9 +26,43 @@ const InnerView = styled.div`
   margin: 0 auto;
 `;
 
+const GlobalStyles = createGlobalStyle`
+  @font-face {
+    font-family: 'radnika_next';
+    src: url('/static/radnikanext-medium-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  html {
+    font-size: 10px;
+    box-sizing: border-box;
+  }
+
+  *, *:before, *:after {
+    box-sizing: inherit
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5rem;
+    line-height: 2;
+    font-family: 'radnika_next';
+  }
+
+  a {
+    text-decoration: none;
+    color: ${props => props.theme.black};
+  }
+`;
+
 const Page = props => (
   <ThemeProvider theme={theme}>
     <StyledPage>
+      <React.Fragment>
+        <GlobalStyles />
+      </React.Fragment>
       <Meta />
       <Header />
       <InnerView>
