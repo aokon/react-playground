@@ -1,6 +1,4 @@
 import React from 'react';
-// TODO: add support for server side rendering
-// https://www.styled-components.com/docs/advanced#server-side-rendering
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import Header from '~/components/Header/Header';
 import Meta from '~/components/Meta/Meta';
