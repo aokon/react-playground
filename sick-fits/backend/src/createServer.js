@@ -9,8 +9,8 @@ const createServer = () => new GraphQLServer({
     Mutation,
     Query
   },
-  resolverValdiationOption: {
-    requireResolversForResolverType: false
+  resolverValdiationOptions: {
+    requireResolversForResolveType: false
   },
   context: (req) => ({ ...req, db }),
 });
