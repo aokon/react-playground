@@ -1,7 +1,12 @@
 import React from 'react';
+import LanguageSwitcher from './LanguageSwitcher';
+import UserForm from './UserForm';
 
 const App = () => (
-  <div>Hello</div>
+  <div id="app">
+    <LanguageSwitcher />
+    <UserForm />
+  </div>
 );
 
 export default App;
