@@ -1,11 +1,14 @@
 import React from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
 import UserForm from './UserForm';
+import LanguageContext from '../contexts/LanguageContext';
 
 const App = () => (
   <div id="app">
-    <LanguageSwitcher />
-    <UserForm />
+    <LanguageContext.Provider>
+      <LanguageSwitcher />
+      <UserForm />
+    </LanguageContext.Provider>
   </div>
 );
 

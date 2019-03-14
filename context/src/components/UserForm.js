@@ -1,16 +1,24 @@
 import React from 'react';
+import LanguageContext from '../contexts/LanguageContext';
+
+const printLabel = lang =>
+  lang === 'pl' ? 'Imię' : 'Name';
 
 const UserForm = () => {
   return (
-    <form id="userForm">
-      <div>
-        <label>Name</label>
-        <input type="text" name="name" />
-      </div>
-      <div>
-        <button>Submit</button>
-      </div>
-    </form>
+    <LanguageContext.Consumer>
+      {(lang) => (
+        <form id="userForm">
+          <div>
+            <label>{printLabel(lang)}</label>
+            <input type="text" name="name" />
+          </div>
+          <div>
+            <button>Submit</button>
+          </div>
+        </form>
+      )}
+    </LanguageContext.Consumer>
   );
 };
 
