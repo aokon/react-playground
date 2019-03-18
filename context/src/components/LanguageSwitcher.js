@@ -1,10 +1,14 @@
 import React from 'react';
 
-const LanguageSwitcher = () => (
+const liStyle = {
+  cursor: "pointer"
+};
+
+const LanguageSwitcher = ({ onClick }) => (
   <div id="langSwitcher">
     <ul>
-      <li>EN</li>
-      <li>DE</li>
+      <li style={liStyle} onClick={() => onClick('en')}>EN</li>
+      <li style={liStyle} onClick={() => onClick('pl')}>PL</li>
     </ul>
   </div>
 );
