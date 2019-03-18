@@ -1,20 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
 import UserForm from './UserForm';
-import LanguageContext from '../contexts/LanguageContext';
+import LanguageStore from '../contexts/LanguageContext';
 
-const App = () => {
-  const [lang, setLang] = useState('en');
-  const onClick = lang => setLang(lang);
-
-  return (
-    <div id="app">
-      <LanguageContext.Provider value={lang}>
-        <LanguageSwitcher onClick={onClick} />
-        <UserForm />
-      </LanguageContext.Provider>
-    </div>
-  );
-};
+const App = () => (
+  <div id="app">
+    <LanguageStore>
+      <LanguageSwitcher  />
+      <UserForm />
+    </LanguageStore>
+  </div>
+);
 
 export default App;

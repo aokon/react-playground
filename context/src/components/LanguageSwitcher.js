@@ -1,4 +1,5 @@
 import React from 'react';
+import { LanguageContext } from '../contexts/LanguageContext';
 
 const liStyle = {
   cursor: "pointer"
@@ -6,10 +7,14 @@ const liStyle = {
 
 const LanguageSwitcher = ({ onClick }) => (
   <div id="langSwitcher">
-    <ul>
-      <li style={liStyle} onClick={() => onClick('en')}>EN</li>
-      <li style={liStyle} onClick={() => onClick('pl')}>PL</li>
-    </ul>
+    <LanguageContext.Consumer>
+      {({ onLangChange }) => (
+        <ul>
+          <li style={liStyle} onClick={() => onLangChange('en')}>EN</li>
+          <li style={liStyle} onClick={() => onLangChange('pl')}>PL</li>
+        </ul>
+      )}
+    </LanguageContext.Consumer>
   </div>
 );
 

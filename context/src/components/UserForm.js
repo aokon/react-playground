@@ -1,5 +1,5 @@
 import React from 'react';
-import LanguageContext from '../contexts/LanguageContext';
+import { LanguageContext } from '../contexts/LanguageContext';
 
 const i18n = {
   en: {
@@ -17,7 +17,7 @@ const t = (lang, key) => i18n[lang][key]
 
 const UserForm = () => (
   <LanguageContext.Consumer>
-    {(lang) => (
+    {({ lang }) => (
       <form id="userForm">
         <div>
           <label>{t(lang, 'inputLabel')}</label>
